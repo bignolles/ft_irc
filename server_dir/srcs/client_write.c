@@ -22,15 +22,11 @@ void	client_write(t_env *env, int cs)
 	int		ret;
 	int		len;
 	char	*buff;
-
-	printf("\nCLIENT_WRITE\n");
-	printf("\t[%d]buf->write = [%s]\n", cs, env->fds[cs].buf_write);
+	
 	len = ft_strlen(env->fds[cs].buf_write);
 	ret = send(cs, env->fds[cs].buf_write, len, 0);
-	printf("\tlen = %d, ret = %d\n", len, ret);
 	tryint(-1, ret, "send");
 	buff = env->fds[cs].buf_write;
 	env->fds[cs].buf_write = ft_strsub(buff, ret, len - ret);
-	printf("\t[%d]buf->write = [%s]\n", cs, env->fds[cs].buf_write);
 	free(buff);
 }

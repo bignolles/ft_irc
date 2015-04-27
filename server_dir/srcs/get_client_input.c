@@ -13,6 +13,8 @@
 #include <libft.h>
 #include <server.h>
 
+# include <stdio.h>
+
 extern t_cmd	g_cmd_table[CMD_NB];
 
 static char		*handle_cmd(t_env *env, int cs, char *input)

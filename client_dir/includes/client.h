@@ -15,7 +15,7 @@
 
 # include <sys/select.h>
 # include <arpa/inet.h>
-# include <sys/_types/_in_addr_t.h>
+# include <netinet/in.h>
 # include <sys/socket.h>
 
 # define CLI_OK			1

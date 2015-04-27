@@ -16,6 +16,6 @@
 # include <stdlib.h>
 
 int		tryint(int err, int res, char *error);
-void	*tryptr(void *err, void *res, char *error);
+void		*tryptr(void *err, void *res, char *error);
 
 #endif

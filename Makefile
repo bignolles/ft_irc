@@ -24,7 +24,8 @@ SERV_SRCS =			main.c					clean_fd.c\
 					srv_accept.c			srv_create.c\
 					init_fd.c				check_fd.c\
 					client_write.c			client_read.c\
-					get_client_input.c		handlers1.c
+					get_client_input.c		handlers1.c\
+					channels.c				handle_join.c
 CLI_OBJ =			$(CLI_SRCS:.c=.o)
 SERV_OBJ =			$(SERV_SRCS:.c=.o)
 
@@ -40,13 +41,13 @@ $(SERV_OBJ_DIR):
 	mkdir $@
 
 $(CLI): $(CLI_OBJ_DIR) $(addprefix $(CLI_OBJ_DIR), $(CLI_OBJ))
-	$(CC) $(LDFLAGS) $(CLI) $(addprefix $(CLI_OBJ_DIR), $(CLI_OBJ))
+	$(CC) $(addprefix $(CLI_OBJ_DIR), $(CLI_OBJ)) $(LDFLAGS) $(CLI)
 
 $(CLI_OBJ_DIR)%.o: $(CLI_SRC_DIR)%.c
 	$(CC) $(CLI_CFLAGS) $(CFLAGS) $@ $<
 
 $(SERV): $(SERV_OBJ_DIR) $(addprefix $(SERV_OBJ_DIR), $(SERV_OBJ))
-	$(CC) $(LDFLAGS) $(SERV) $(addprefix $(SERV_OBJ_DIR), $(SERV_OBJ))
+	$(CC) $(addprefix $(SERV_OBJ_DIR), $(SERV_OBJ)) $(LDFLAGS) $(SERV)
 
 $(SERV_OBJ_DIR)%.o: $(SERV_SRC_DIR)%.c
 	$(CC) $(SERV_CFLAGS) $(CFLAGS) $@ $<

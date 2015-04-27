@@ -23,6 +23,7 @@ void	init_env(t_env *env)
 	tryint(-1, getrlimit(RLIMIT_NOFILE, &r_info), "getrlimit failed");
 	env->max_fd = r_info.rlim_cur;
 	env->fds = tryptr(0, malloc(sizeof(*env->fds) * env->max_fd), "malloc");
+	env->chans = create_channel(DEFAULT_CHAN, "default");
 	while (i < env->max_fd)
 	{
 		clean_fd(&env->fds[i]);

@@ -39,20 +39,25 @@ char		*ft_epurstr(char *s)
 	int		j;
 	char	prev;
 
-	i = -1;
-	j = -1;
+	i = 0;
+	j = 0;
 	epur_len = ft_epur_len(s);
 	if ((epur = (char *)malloc(sizeof(char) * (epur_len + 1))) != NULL)
 	{
 		prev = ' ';
-		while (s[++i])
+		while (s[i])
 		{
 			if (!ft_iswhite(s[i]))
-				epur[++j] = s[i];
+				epur[j] = s[i];
 			else if (!ft_iswhite(prev) && ft_iswhite(s[i]))
-				epur[++j] = ' ';
+				epur[j] = ' ';
+			else
+				--j;
 			prev = s[i];
+			++i;
+			++j;
 		}
 	}
+	epur[epur_len] = '\0';
 	return (epur);
 }

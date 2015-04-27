@@ -22,11 +22,8 @@ void	write_to_serv(t_env *env)
 	size_t	len;
 	char	*buff;
 
-	printf("write_to_serv: env->buf_read: [%s]\n", env->buf_read);
 	len = ft_strlen(env->buf_read);
 	ret = tryint(-1, send(env->s_sock, env->buf_read, len, 0), "send");
 	buff = env->buf_read;
-	printf("len = %zu, ret = %d\n", len, ret);
 	env->buf_read = ft_strsub(buff, ret, len - ret);
-	printf("write_to_serv: env->buf_read: [%s]\n", env->buf_read);
 }

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include <stdlib.h>
 #include <libft.h>
 
@@ -62,10 +63,10 @@ static char		*ft_makestr(char *str, int n, int pow, size_t len)
 char			*ft_itoa(int n)
 {
 	int		pow;
-	size_t	len;
-	char	*str;
+	size_t		len;
+	char		*str;
 
-	if (n == MIN_INT)
+	if (n == INT_MIN)
 		return (ft_strsub("-2147483648", 0, 11));
 	len = ft_sizealloc(n, &pow);
 	str = malloc(sizeof(char) * len);

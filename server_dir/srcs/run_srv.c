@@ -19,10 +19,8 @@ void	run_srv(t_env *env)
 	while (42)
 	{
 		init_fd(env);
-		ft_putendl("trying select");
 		env->r = tryint(-1, select(env->max + 1, &env->fd_read, &env->fd_write,
 				0, 0), "select");
-		ft_putendl("select ok");
 		check_fd(env);
 	}
 }

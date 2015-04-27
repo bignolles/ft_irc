@@ -25,12 +25,14 @@
 # define QUEUE_SIZE		42
 # define BUF_SIZE		1024
 # define CMD_CHAR		'/'
-# define CMD_NB			1
+# define CMD_NB			2
+# define DEFAULT_CHAN	0
 # define CMD_ERROR		"Sorry, command not found :/"
 
 typedef struct				s_fd
 {
 	int		type;
+	int		chan;
 	void	(*fct_read)();
 	void	(*fct_write)();
 	char	buf_read[BUF_SIZE + 1];
@@ -38,15 +40,23 @@ typedef struct				s_fd
 	char	*nick;
 }							t_fd;
 
+typedef struct				s_channel
+{
+	int					id;
+	char				*name;
+	struct s_channel	*next;
+}							t_channel;
+
 typedef struct				s_env
 {
-	t_fd	*fds;
-	int		port;
-	int		max_fd;
-	int		max;
-	int		r;
-	fd_set	fd_read;
-	fd_set	fd_write;
+	t_fd		*fds;
+	t_channel	*chans;
+	int			port;
+	int			max_fd;
+	int			max;
+	int			r;
+	fd_set		fd_read;
+	fd_set		fd_write;
 }							t_env;
 
 typedef struct				s_cmd
@@ -70,10 +80,13 @@ void						client_read(t_env *env, int cs);
 void						client_write(t_env *env, int cs);
 void						srv_accept(t_env *env, int s);
 char						*get_client_input(t_env *env, int cs, char *input);
+t_channel					*create_channel(int id, char *name);
+int							add_channel(t_env *env, t_channel *new);
 
 /*
 ** handlers1.c
 */
 
 char						*handle_nick(t_env *env, int cs, char *input);
+char						*handle_join(t_env *env, int cs, char *input);
 #endif

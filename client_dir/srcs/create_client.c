@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include <netdb.h>
-#include <netinet/in.h>
 #include <client.h>
 #include <ft_error.h>
+#include <libft.h>
 
 void	create_client(t_env *env)
 {

@@ -13,8 +13,10 @@
 #include <server.h>
 #include <stdlib.h>
 
-t_cmd		g_cmd_table[CMD_NB] =
-{{"/NICK \0", handle_nick}};
+t_cmd		g_cmd_table[CMD_NB] = {
+	{"/nick \0", handle_nick},
+	{"/join \0", handle_join}
+};
 
 int			main(int argc, char **argv)
 {
