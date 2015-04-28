@@ -12,7 +12,7 @@ t_channel	*create_channel(int id, char *name)
 	{
 		ret->id = id;
 		ret->name = ft_strdup(name);
-
+		ret->next = NULL;
 	}
 	return (ret);
 }

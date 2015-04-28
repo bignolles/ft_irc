@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2014/11/02 19:05:46 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 12:07:25 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define QUEUE_SIZE		42
 # define BUF_SIZE		1024
 # define CMD_CHAR		'/'
-# define CMD_NB			2
+# define CMD_NB			4
 # define DEFAULT_CHAN	0
 # define CMD_ERROR		"Sorry, command not found :/"
 
@@ -84,9 +84,11 @@ t_channel					*create_channel(int id, char *name);
 int							add_channel(t_env *env, t_channel *new);
 
 /*
-** handlers1.c
+** command handlers
 */
 
 char						*handle_nick(t_env *env, int cs, char *input);
 char						*handle_join(t_env *env, int cs, char *input);
+char						*handle_who(t_env *env, int cs, char *input);
+char						*handle_msg(t_env *env, int cs, char *input);
 #endif

@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2015/04/22 19:35:43 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 10:50:22 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void			client_read(t_env *env, int cs)
 		while (i < env->max_fd && env->fds[cs].chan != 0)
 		{
 			if (env->fds[i].type == FD_CLIENT && i != cs &&
-					env->fds[i].chan == env->fds[cs].chan)
+					env->fds[i].chan == env->fds[cs].chan
+					&& cmd_ret != NULL)
 				add_input(env, cmd_ret, i);
 			++i;
 		}
