@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2014/11/02 19:11:17 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 14:05:45 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define FD_FREE		0
 # define FD_SERV		1
 # define FD_IO			2
+# define CONNECT_CMD	"/connect"
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
 
@@ -53,7 +54,7 @@ typedef struct				s_env
 typedef struct sockaddr		t_sockaddr;
 
 void						usage(char *exname);
-void						get_opt(t_env *env, int argc, char **argv);
+void						get_opt(t_env *env, char *hostname, char *port);
 void						init_fd(t_env *env);
 void						create_client(t_env *env);
 void						read_from_client(t_env *env);
@@ -62,5 +63,6 @@ void						write_to_serv(t_env *env);
 void						init_env(t_env *env);
 void						run_client(t_env *env);
 void						check_fd(t_env *env);
+void						wait_for_connect(t_env *env);
 
 #endif

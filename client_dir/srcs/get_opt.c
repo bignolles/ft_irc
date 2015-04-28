@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 16:30:40 by marene            #+#    #+#             */
-/*   Updated: 2014/11/02 17:24:25 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 13:55:08 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,17 @@
 #include <ft_error.h>
 #include <client.h>
 
-void	get_opt(t_env *env, int argc, char **argv)
+void	get_opt(t_env *env, char *hostname, char *port)
 {
 	struct hostent	*he;
 	struct in_addr	**addr_list;
 
-	if (argc != 3)
-		usage(argv[0]);
-	if ((he = gethostbyname(argv[1])) != NULL)
+	if ((he = gethostbyname(hostname)) != NULL)
 	{
 		addr_list = (struct in_addr **)he->h_addr_list;
 		env->s_addr = tryint(INADDR_NONE, inet_addr(inet_ntoa(**addr_list)), "invalid hostname");
 	}
 	else
-		env->s_addr = tryint(INADDR_NONE, inet_addr(argv[1]), "invalid adress");
-	env->port = tryint(0, ft_atoi(argv[2]), "invalid port");
+		env->s_addr = tryint(INADDR_NONE, inet_addr(hostname), "invalid adress");
+	env->port = tryint(0, ft_atoi(port), "invalid port");
 }

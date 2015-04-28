@@ -17,7 +17,8 @@ CLI_SRCS =			main.c					create_client.c\
 					read_from_client.c		write_to_serv.c\
 					init_env.c				read_from_serv.c\
 					check_fd.c				run_client.c\
-					get_opt.c				usage.c
+					get_opt.c				usage.c\
+					wait_for_connect.c
 SERV_SRCS =			main.c					clean_fd.c\
 					disp.c					get_opt.c\
 					init_env.c				run_srv.c\

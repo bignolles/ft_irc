@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 10:50:22 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 15:24:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void		end_connection(t_env *env, int cs)
 	disp_client_away(env, cs);
 	close(cs);
 	free(env->fds[cs].buf_write);
+	// (?) free(env->fds[cs].buf_read);
 	free(env->fds[cs].nick);
 	clean_fd(&env->fds[cs]);
 }

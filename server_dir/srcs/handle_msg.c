@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 13:15:43 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 16:03:21 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,55 @@ static void		free_args(char **args)
 	free(args);
 }
 
-static void		send_a_message(t_env *env, int c_nb, char *sender, char *msg)
+static void		send_a_message(t_env *env, int c_nb, char *msg)
 {
 	char	*tmp;
 
 	tmp = env->fds[c_nb].buf_write;
-	env->fds[c_nb].buf_write = ft_strjoin(tmp, "\n");
-	free(tmp);
-	tmp = env->fds[c_nb].buf_write;
-	env->fds[c_nb].buf_write = ft_strjoin(tmp, sender);
-	free(tmp);
-	tmp = env->fds[c_nb].buf_write;
-	env->fds[c_nb].buf_write = ft_strjoin(tmp, ": ");
-	free(tmp);
-	tmp = env->fds[c_nb].buf_write;
 	env->fds[c_nb].buf_write = ft_strjoin(tmp, msg);
 	free(tmp);
+	tmp = env->fds[c_nb].buf_write;
+	env->fds[c_nb].buf_write = ft_strjoin(tmp, " ");
+	free(tmp);
+}
+
+static void		unresolved_dest(t_env *env, char *dest, int cs)
+{
+	char	*tmp;
+
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
+	free(tmp);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, dest);
+	free(tmp);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp,
+			" does not exist, or is not connected");
+	free(tmp);
+}
+
+static char		*add_sender(char *buf, char *sender)
+{
+	char	*tmp;
+
+	tmp = buf;
+	buf = ft_strjoin(tmp, "\n");
+	free(tmp);
+	tmp = buf;
+	buf = ft_strjoin(tmp, sender);
+	free(tmp);
+	tmp = buf;
+	buf = ft_strjoin(tmp, ": ");
+	free(tmp);
+	return (buf);
 }
 
 char			*handle_msg(t_env *env, int cs, char *input)
 {
 	char	**args;
-	char	*tmp;
 	int		i;
+	int		j;
 
 	args = ft_strsplit(input, ' ');
 	if (args[1] != NULL && args[2] != NULL)
@@ -59,22 +85,17 @@ char			*handle_msg(t_env *env, int cs, char *input)
 			if (env->fds[i].nick != NULL
 					&& ft_strequ(args[1], env->fds[i].nick))
 			{
-				send_a_message(env, i, env->fds[cs].nick, args[2]);
+				j = 1;
+				env->fds[i].buf_write = add_sender(env->fds[i].buf_write,
+						env->fds[cs].nick);
+				while (args[++j])
+					send_a_message(env, i, args[j]);
 				free_args(args);
 				return (NULL);
 			}
 			++i;
 		}
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
-		free(tmp);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, args[1]);
-		free(tmp);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, " does not exist, or is not connected");
-		free(tmp);
-		ft_putendl(env->fds[cs].buf_write);
+		unresolved_dest(env, args[1], cs);
 	}
 	free_args(args);
 	return (NULL);
