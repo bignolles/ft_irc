@@ -6,17 +6,13 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 15:04:22 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:38:01 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_error.h>
 #include <client.h>
-
-# include <stdio.h>
-
-# define BUFF_SIZE	1024
 
 void			run_client(t_env *env)
 {

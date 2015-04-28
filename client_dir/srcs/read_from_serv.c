@@ -6,15 +6,13 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 15:25:20 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:37:49 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_error.h>
 #include <client.h>
-
-# include <stdio.h>
 
 void	read_from_serv(t_env *env)
 {

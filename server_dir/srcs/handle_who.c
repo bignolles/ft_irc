@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:37:58 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 10:55:35 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:35:08 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char			*handle_who(t_env *env, int cs, char *input)
 
 	i = 0;
 	buf_who = NULL;
-	free(input); // Might segfault? Please check.
+	free(input);
 	while (i < env->max_fd)
 	{
 		if (env->fds[i].chan != DEFAULT_CHAN

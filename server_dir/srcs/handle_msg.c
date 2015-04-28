@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 16:03:21 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:34:46 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,10 @@ char			*handle_msg(t_env *env, int cs, char *input)
 	args = ft_strsplit(input, ' ');
 	if (args[1] != NULL && args[2] != NULL)
 	{
-		i = 0;
-		while (i < env->max_fd)
+		i = -1;
+		while (++i < env->max_fd)
 		{
-			if (env->fds[i].nick != NULL
-					&& ft_strequ(args[1], env->fds[i].nick))
+			if (env->fds[i].nick && ft_strequ(args[1], env->fds[i].nick))
 			{
 				j = 1;
 				env->fds[i].buf_write = add_sender(env->fds[i].buf_write,
@@ -93,7 +92,6 @@ char			*handle_msg(t_env *env, int cs, char *input)
 				free_args(args);
 				return (NULL);
 			}
-			++i;
 		}
 		unresolved_dest(env, args[1], cs);
 	}

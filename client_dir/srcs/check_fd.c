@@ -6,15 +6,13 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 17:15:26 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 15:06:41 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:36:48 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <client.h>
-
-# include <stdio.h>
 
 #include <libft.h>
 

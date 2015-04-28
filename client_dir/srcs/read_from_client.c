@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 11:38:41 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:37:15 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <libft.h>
 #include <ft_error.h>
 #include <client.h>
-
-# include <stdio.h>
 
 void	read_from_client(t_env *env)
 {

@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   channels.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/04/28 18:21:45 by marene            #+#    #+#             */
+/*   Updated: 2015/04/28 18:22:13 by marene           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <server.h>
 #include <libft.h>
-
-# include <stdio.h>
 
 t_channel	*create_channel(int id, char *name)
 {
@@ -20,7 +29,7 @@ t_channel	*create_channel(int id, char *name)
 int			add_channel(t_env *env, t_channel *new)
 {
 	t_channel	*tmp;
-	
+
 	tmp = env->chans;
 	while (tmp)
 	{

@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 15:24:27 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:23:02 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <libft.h>
 #include <ft_error.h>
 #include <server.h>
-
-# include <stdio.h>
 
 static void		zero_buff(char *buff, int start)
 {

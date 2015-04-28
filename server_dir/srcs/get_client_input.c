@@ -6,14 +6,12 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2014/11/02 17:57:13 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:24:04 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <server.h>
-
-# include <stdio.h>
 
 extern t_cmd	g_cmd_table[CMD_NB];
 

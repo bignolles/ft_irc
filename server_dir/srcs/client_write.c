@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 11:16:22 by marene            #+#    #+#             */
-/*   Updated: 2015/04/22 19:32:30 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/28 18:23:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 #include <ft_error.h>
 #include <server.h>
 
-# include <stdio.h>
-
 void	client_write(t_env *env, int cs)
 {
 	int		ret;
 	int		len;
 	char	*buff;
-	
+
 	len = ft_strlen(env->fds[cs].buf_write);
 	ret = send(cs, env->fds[cs].buf_write, len, 0);
 	tryint(-1, ret, "send");
