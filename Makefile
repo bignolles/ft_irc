@@ -54,9 +54,9 @@ $(SERV): $(SERV_OBJ_DIR) $(addprefix $(SERV_OBJ_DIR), $(SERV_OBJ))
 $(SERV_OBJ_DIR)%.o: $(SERV_SRC_DIR)%.c
 	$(CC) $(SERV_CFLAGS) $(CFLAGS) $@ $<
 
-clean: client_clean server_clean
+clean: client_clean server_clean libclean
 
-fclean: client_fclean server_fclean
+fclean: client_fclean server_fclean libfclean
 
 client_clean:
 	rm -rf $(CLI_OBJ_DIR)
@@ -76,8 +76,14 @@ client_re: client_fclean libre $(CLI)
 
 server_re: server_fclean libre $(SERV)
 
+libclean:
+	make -C $(LIB_DIR) clean
+
+libfclean:
+	make -C $(LIB_DIR) fclean
+
 libre:
 	make -C $(LIB_DIR) re
 
 .PHONY: all clean fclean libre client_clean server_clean client_fclean\
-	server_fclean client_re server_re client_build server_build
+	server_fclean client_re server_re client_build server_build libclean libfclean
