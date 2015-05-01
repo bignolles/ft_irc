@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:23:02 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 14:15:50 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void		end_connection(t_env *env, int cs)
 	disp_client_away(env, cs);
 	close(cs);
 	free(env->fds[cs].buf_write);
-	// (?) free(env->fds[cs].buf_read);
 	free(env->fds[cs].nick);
 	clean_fd(&env->fds[cs]);
 }
@@ -46,7 +45,7 @@ static void		add_input(t_env *env, char *cmd_ret, int i)
 	env->fds[i].buf_write = ft_strjoin(buff, "\n");
 	free(buff);
 	buff = env->fds[i].buf_write;
-	env->fds[i].buf_write = ft_strjoin(buff, ft_strdup(cmd_ret));
+	env->fds[i].buf_write = ft_strjoin(buff, cmd_ret);
 	free(buff);
 }
 

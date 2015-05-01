@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 12:07:25 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 10:55:51 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void						srv_accept(t_env *env, int s);
 char						*get_client_input(t_env *env, int cs, char *input);
 t_channel					*create_channel(int id, char *name);
 int							add_channel(t_env *env, t_channel *new);
+char						*get_chan_by_id(t_channel *chan, int id);
 
 /*
 ** command handlers

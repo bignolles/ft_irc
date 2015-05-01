@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2015/04/30 18:18:06 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 14:16:55 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,25 @@ static char		*get_chan_name(char *input)
 	return (ft_strdup(input));
 }
 
-static char		*get_chan_by_id(t_channel *chan, int id)
+static char		*leave_msg(t_channel *chan, int id, char *nick)
 {
-	int		i;
+	char	*old_chan_name;
+	char	*msg;
+	char	*tmp;
 
-	i = 0;
-	while (chan)
-	{
-		if (chan->id == id)
-			return (chan->name);
-		chan = chan->next;
-	}
-	return (NULL);
+	old_chan_name = get_chan_by_id(chan, id);
+	msg = ft_strdup(nick);
+	tmp = msg;
+	msg = ft_strjoin(tmp, " has left ");
+	free(tmp);
+	tmp = msg;
+	msg = ft_strjoin(tmp, old_chan_name);
+	free(tmp);
+	return (msg);
 }
 
 static void		leave_chan(t_env *env, int cs, int new_chan)
 {
-	char	*old_chan_name;
 	char	*msg;
 	char	*tmp;
 	int		i;
@@ -43,14 +45,7 @@ static void		leave_chan(t_env *env, int cs, int new_chan)
 	if (env->fds[cs].chan != DEFAULT_CHAN)
 	{
 		i = 0;
-		old_chan_name = get_chan_by_id(env->chans, env->fds[cs].chan);
-		msg = ft_strdup(env->fds[cs].nick);
-		tmp = msg;
-		msg = ft_strjoin(tmp, " has left ");
-		free(tmp);
-		tmp = msg;
-		msg = ft_strjoin(tmp, old_chan_name);
-		free(tmp);
+		msg = leave_msg(env->chans, env->fds[cs].chan, env->fds[cs].nick);
 		while (i < env->max_fd)
 		{
 			if (i != cs && env->fds[i].chan == env->fds[cs].chan)
@@ -87,6 +82,7 @@ char			*handle_join(t_env *env, int cs, char *input)
 {
 	t_channel	*tmp;
 	char		*chan_name;
+	char		*ret;
 
 	tmp = env->chans;
 	chan_name = get_chan_name(input);
@@ -95,7 +91,8 @@ char			*handle_join(t_env *env, int cs, char *input)
 		if (tmp->name && ft_strequ(tmp->name, chan_name))
 		{
 			free(input);
-			return (join_msg(env, cs, tmp->id, chan_name));
+			ret = join_msg(env, cs, tmp->id, chan_name);
+			return (ret);
 		}
 		else if (tmp->next == NULL)
 		{

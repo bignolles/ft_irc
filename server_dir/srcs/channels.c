@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 18:21:45 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:22:13 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 10:56:18 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,18 @@ int			add_channel(t_env *env, t_channel *new)
 		tmp = tmp->next;
 	}
 	return (SERV_ERROR);
+}
+
+char		*get_chan_by_id(t_channel *chan, int id)
+{
+	int		i;
+
+	i = 0;
+	while (chan)
+	{
+		if (chan->id == id)
+			return (chan->name);
+		chan = chan->next;
+	}
+	return (NULL);
 }
