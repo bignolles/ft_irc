@@ -27,7 +27,8 @@ SERV_SRCS =			main.c					clean_fd.c\
 					client_write.c			client_read.c\
 					get_client_input.c		handle_nick.c\
 					channels.c				handle_join.c\
-					handle_who.c			handle_msg.c
+					handle_who.c			handle_msg.c\
+					handle_channels.c
 CLI_OBJ =			$(CLI_SRCS:.c=.o)
 SERV_OBJ =			$(SERV_SRCS:.c=.o)
 
