@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 14:29:25 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 17:19:01 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char						*get_client_input(t_env *env, int cs, char *input);
 t_channel					*create_channel(int id, char *name);
 int							add_channel(t_env *env, t_channel *new);
 char						*get_chan_by_id(t_channel *chan, int id);
+int							get_channels_nb(t_channel *chan);
 
 /*
 ** command handlers
@@ -100,4 +101,6 @@ char						*handle_join(t_env *env, int cs, char *input);
 char						*handle_who(t_env *env, int cs, char *input);
 char						*handle_msg(t_env *env, int cs, char *input);
 char						*handle_channels(t_env *env, int cs, char *input);
+char						*handle_list(t_env *env, int cs, char *input);
+
 #endif

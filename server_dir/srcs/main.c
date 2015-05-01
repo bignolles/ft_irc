@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:21:12 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 14:18:33 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 17:19:11 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cmd		g_cmd_table[CMD_NB] = {
 	{"/join \0", handle_join},
 	{"/who \0", handle_who},
 	{"/msg \0", handle_msg},
-	{"/channels \0", handle_channels}
+	{"/channels \0", handle_channels},
 };
 
 int			main(int argc, char **argv)

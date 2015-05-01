@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:51:56 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 11:24:28 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 17:59:25 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,42 @@ static char		*nick_msg(t_env *env, int cs, char *new_nick)
 	return (ret);
 }
 
+static int		is_valid(t_env *env, int cs, char *nick)
+{
+	int		i;
+
+	i = 0;
+	if (is_empty(nick))
+		return (0);
+	while (i < env->max_fd)
+	{
+		if (i != cs && env->fds[i].type == FD_CLIENT
+				&& ft_strequ(env->fds[i].nick, nick))
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
 char			*handle_nick(t_env *env, int cs, char *input)
 {
-	char	*buff;
-	char	*nick;
-	int		nick_len;
+	char		*buff;
+	char		*nick;
+	size_t		nick_len;
 
 	nick_len = ft_strlen("/NICK ");
-	nick = ft_strsub(input, nick_len, ft_strlen(input) - nick_len - 1);
-	free(input);
-	if (!is_empty(nick))
-		return (nick_msg(env, cs, nick));
-	else
+	if (nick_len < ft_strlen(input))
 	{
-		buff = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(buff, "\ninvalid nickname");
-		return (NULL);
+		nick = ft_strsub(input, nick_len, ft_strlen(input) - nick_len - 1);
+		free(input);
+		input = NULL;
+		if (is_valid(env, cs, nick))
+			return (nick_msg(env, cs, nick));
+		free(nick);
 	}
+	free(input);
+	buff = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(buff, "\ninvalid nickname");
+	free(buff);
+	return (NULL);
 }

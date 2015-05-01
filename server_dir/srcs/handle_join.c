@@ -6,17 +6,34 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 14:16:55 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 18:01:13 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <server.h>
 #include <libft.h>
 
-static char		*get_chan_name(char *input)
+static char		*get_chan_name(t_env *env, int cs, char *input)
 {
-	input += ft_strlen("/join ");
-	return (ft_strdup(input));
+	char		*epur;
+	char		*ret;
+	char		*tmp;
+	size_t		join_len;
+
+	epur = ft_strtrim(input);
+	join_len = ft_strlen("/join ");
+	if (ft_strlen(epur) <= join_len)
+	{
+		free(input);
+		free(epur);
+		tmp = env->fds[cs].buf_write;
+		env->fds[cs].buf_write = ft_strjoin(tmp, "\nInvalid chan name");
+		free(tmp);
+		return (NULL);
+	}
+	ret = ft_strdup(epur + join_len);
+	free(epur);
+	return (ret);
 }
 
 static char		*leave_msg(t_channel *chan, int id, char *nick)
@@ -85,7 +102,8 @@ char			*handle_join(t_env *env, int cs, char *input)
 	char		*ret;
 
 	tmp = env->chans;
-	chan_name = get_chan_name(input);
+	if ((chan_name = get_chan_name(env, cs, input)) == NULL)
+		return (NULL);
 	while (tmp)
 	{
 		if (tmp->name && ft_strequ(tmp->name, chan_name))
