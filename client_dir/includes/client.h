@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 14:05:45 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/30 17:25:42 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define FD_SERV		1
 # define FD_IO			2
 # define CONNECT_CMD	"/connect"
+# define PROMPT			"?>"
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
 

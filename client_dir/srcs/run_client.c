@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:38:01 by marene           ###   ########.fr       */
+/*   Updated: 2015/04/30 17:27:59 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void			run_client(t_env *env)
 		if (ft_strlen(env->buf_read) > 0)
 			FD_SET(env->s_sock, &env->fd_write);
 		else
+		{
+			ft_putstr(PROMPT);
 			FD_SET(1, &env->fd_read);
+		}
 		tryint(-1, select(env->s_sock + 1, &env->fd_read, &env->fd_write, 0, 0),
 				"select");
 		check_fd(env);
