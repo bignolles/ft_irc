@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 15:15:29 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 15:45:12 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 #include <ft_error.h>
 #include <colors.h>
 #include <server.h>
-
-static int			get_channels_nb(t_channel *chan)
-{
-	int		ret;
-
-	ret = 0;
-	while (chan)
-	{
-		if (chan->id != DEFAULT_CHAN)
-			++ret;
-		chan = chan->next;
-	}
-	return (ret);
-}
 
 static int			get_co_nb(t_env *env, int chan_id)
 {
@@ -45,11 +31,22 @@ static int			get_co_nb(t_env *env, int chan_id)
 	return (ret);
 }
 
+static void			color_name(char **name)
+{
+	char	*tmp;
+
+	tmp = *name;
+	*name = ft_strjoin(GREEN, tmp);
+	free(tmp);
+	tmp = *name;
+	*name = ft_strjoin(tmp, DEFAULT_COLOR);
+	free(tmp);
+}
+
 static t_chan_list	*get_channels_recap(t_env *env, int cs, int *chan_nb)
 {
 	t_channel		*chan;
 	t_chan_list		*ret;
-	char			*tmp;
 	int				i;
 
 	i = 0;
@@ -63,12 +60,7 @@ static t_chan_list	*get_channels_recap(t_env *env, int cs, int *chan_nb)
 			ret[i].name = chan->name;
 			ret[i].co_nb = get_co_nb(env, chan->id);
 			if (env->fds[cs].chan == chan->id)
-			{
-				ret[i].name = ft_strjoin(GREEN, ret[i].name);
-				tmp = ret[i].name;
-				ret[i].name = ft_strjoin(tmp, DEFAULT_COLOR);
-				free(tmp);
-			}
+				color_name(&ret[i].name);
 			++i;
 		}
 		chan = chan->next;
@@ -76,12 +68,31 @@ static t_chan_list	*get_channels_recap(t_env *env, int cs, int *chan_nb)
 	return (ret);
 }
 
+static void			insert_msg(t_env *env, int cs, t_chan_list chan)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp2 = ft_itoa(chan.co_nb);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, chan.name);
+	free(tmp);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, " [");
+	free(tmp);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, tmp2);
+	free(tmp);
+	free(tmp2);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, "]\n");
+	free(tmp);
+}
+
 char				*handle_channels(t_env *env, int cs, char *input)
 {
 	t_chan_list		*chans;
 	int				chans_nb;
-	char			*tmp;
-	char			*tmp2;
 	int				i;
 
 	(void)input;
@@ -89,20 +100,7 @@ char				*handle_channels(t_env *env, int cs, char *input)
 	chans = get_channels_recap(env, cs, &chans_nb);
 	while (i < chans_nb)
 	{
-		tmp2 = ft_itoa(chans[i].co_nb);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, chans[i].name);
-		free(tmp);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, " [");
-		free(tmp);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, tmp2);
-		free(tmp);
-		free(tmp2);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, "]\n");
-		free(tmp);
+		insert_msg(env, cs, chans[i]);
 		++i;
 	}
 	return (NULL);
