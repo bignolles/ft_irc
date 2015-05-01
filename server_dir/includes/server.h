@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 17:19:01 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 18:42:05 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define QUEUE_SIZE		42
 # define BUF_SIZE		1024
 # define CMD_CHAR		'/'
-# define CMD_NB			5
+# define CMD_NB			6
 # define DEFAULT_CHAN	0
 # define CMD_ERROR		"Sorry, command not found :/"
 
@@ -69,6 +69,7 @@ typedef struct				s_env
 typedef struct				s_cmd
 {
 	char	cmd[11];
+	char	desc[64];
 	char	*(*handler)();
 }							t_cmd;
 
@@ -101,6 +102,6 @@ char						*handle_join(t_env *env, int cs, char *input);
 char						*handle_who(t_env *env, int cs, char *input);
 char						*handle_msg(t_env *env, int cs, char *input);
 char						*handle_channels(t_env *env, int cs, char *input);
-char						*handle_list(t_env *env, int cs, char *input);
+char						*handle_help(t_env *env, int cs, char *input);
 
 #endif

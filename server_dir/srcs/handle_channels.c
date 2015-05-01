@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 15:45:12 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 18:47:24 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char				*handle_channels(t_env *env, int cs, char *input)
 	int				chans_nb;
 	int				i;
 
-	(void)input;
+	free(input);
 	i = 0;
 	chans = get_channels_recap(env, cs, &chans_nb);
 	while (i < chans_nb)

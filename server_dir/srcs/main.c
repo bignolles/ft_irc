@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:21:12 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 17:19:11 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/01 18:43:49 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #include <stdlib.h>
 
 t_cmd		g_cmd_table[CMD_NB] = {
-	{"/nick \0", handle_nick},
-	{"/join \0", handle_join},
-	{"/who \0", handle_who},
-	{"/msg \0", handle_msg},
-	{"/channels \0", handle_channels},
+	{"/nick \0", "Change nickname", handle_nick},
+	{"/join \0", "join or create channel", handle_join},
+	{"/who \0", "See who is connected to the current channel", handle_who},
+	{"/msg \0", "Send a private message to a user", handle_msg},
+	{"/channels \0",
+		"List all channels, and how many users are connected to them",
+		handle_channels},
+	{"/help \0", "Display help", handle_help},
 };
 
 int			main(int argc, char **argv)
