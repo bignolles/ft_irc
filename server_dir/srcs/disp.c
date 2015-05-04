@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 11:09:49 by marene            #+#    #+#             */
-/*   Updated: 2014/11/01 15:18:07 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:55:29 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	disp_new_client(int c_sock, struct sockaddr_in c_sin)
 	buff = ft_itoa(c_sock);
 	ft_putstr(buff);
 	free(buff);
-	ft_putstr("from ");
+	ft_putstr(" from ");
 	buff = inet_ntoa(c_sin.sin_addr);
 	ft_putstr(buff);
 	buff = ft_itoa(ntohs(c_sin.sin_port));

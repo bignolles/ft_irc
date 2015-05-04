@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2015/05/04 10:00:42 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:38:48 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ extern t_cmd	g_cmd_table[CMD_NB];
 static char		*handle_cmd(t_env *env, int cs, char *input)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (i < CMD_NB)
@@ -26,7 +27,10 @@ static char		*handle_cmd(t_env *env, int cs, char *input)
 			return (g_cmd_table[i].handler(env, cs, input));
 		++i;
 	}
-	return (ft_strdup(CMD_ERROR));
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, "\nCommand not found.");
+	free(tmp);
+	return (NULL);
 }
 
 char			*get_client_input(t_env *env, int cs, char *input)

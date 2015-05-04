@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 18:38:50 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 18:47:03 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:45:42 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ char			*handle_help(t_env *env, int cs, char *input)
 	while (i < CMD_NB)
 	{
 		tmp = env->fds[cs].buf_write;
+		env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
+		free(tmp);
+		tmp = env->fds[cs].buf_write;
 		env->fds[cs].buf_write = ft_strjoin(tmp, g_cmd_table[i].cmd);
 		free(tmp);
 		tmp = env->fds[cs].buf_write;
@@ -32,9 +35,6 @@ char			*handle_help(t_env *env, int cs, char *input)
 		free(tmp);
 		tmp = env->fds[cs].buf_write;
 		env->fds[cs].buf_write = ft_strjoin(tmp, g_cmd_table[i].desc);
-		free(tmp);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
 		free(tmp);
 		++i;
 	}

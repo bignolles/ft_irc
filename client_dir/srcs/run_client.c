@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2015/04/30 17:27:59 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:15:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void			run_client(t_env *env)
 		FD_ZERO(&env->fd_read);
 		FD_ZERO(&env->fd_write);
 		FD_SET(env->s_sock, &env->fd_read);
+		FD_SET(0, &env->fd_read);
 		if (ft_strlen(env->buf_read) > 0)
 			FD_SET(env->s_sock, &env->fd_write);
 		else

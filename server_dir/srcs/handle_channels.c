@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2015/05/04 09:54:27 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:51:56 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ static void			insert_msg(t_env *env, int cs, t_chan_list chan)
 
 	tmp2 = ft_itoa(chan.co_nb);
 	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
+	free(tmp);
+	tmp = env->fds[cs].buf_write;
 	env->fds[cs].buf_write = ft_strjoin(tmp, chan.name);
 	free(tmp);
 	tmp = env->fds[cs].buf_write;
@@ -85,7 +88,7 @@ static void			insert_msg(t_env *env, int cs, t_chan_list chan)
 	free(tmp);
 	free(tmp2);
 	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, "]\n");
+	env->fds[cs].buf_write = ft_strjoin(tmp, "]");
 	free(tmp);
 }
 
@@ -94,10 +97,17 @@ char				*handle_channels(t_env *env, int cs, char *input)
 	t_chan_list		*chans;
 	int				chans_nb;
 	int				i;
+	char			*tmp;
 
 	free(input);
 	i = 0;
 	chans = get_channels_recap(env, cs, &chans_nb);
+	if (chans_nb == 0)
+	{
+		tmp = env->fds[cs].buf_write;
+		env->fds[cs].buf_write = ft_strjoin(tmp, "\nNo channels (yet)");
+		free(tmp);
+	}
 	while (i < chans_nb)
 	{
 		insert_msg(env, cs, chans[i]);

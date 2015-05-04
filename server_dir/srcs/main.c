@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:21:12 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 18:43:49 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:57:17 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cmd		g_cmd_table[CMD_NB] = {
 	{"/channels \0",
 		"List all channels, and how many users are connected to them",
 		handle_channels},
+	{"/find \0", "Find to what chan an user is connected", handle_find},
 	{"/help \0", "Display help", handle_help},
 };
 

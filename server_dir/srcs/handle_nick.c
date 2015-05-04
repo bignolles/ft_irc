@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:51:56 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 17:59:25 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 16:39:52 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static int		is_empty(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!ft_iswhite(s[i]))
-			return (0);
+		if (ft_iswhite(s[i]))
+			return (1);
 		++i;
 	}
-	return (1);
+	return (0);
 }
 
 static char		*nick_msg(t_env *env, int cs, char *new_nick)
