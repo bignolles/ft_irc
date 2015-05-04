@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 18:47:24 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 09:54:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_chan_list	*get_channels_recap(t_env *env, int cs, int *chan_nb)
 	{
 		if (chan->id != DEFAULT_CHAN)
 		{
-			ret[i].name = chan->name;
+			ret[i].name = ft_strdup(chan->name);
 			ret[i].co_nb = get_co_nb(env, chan->id);
 			if (env->fds[cs].chan == chan->id)
 				color_name(&ret[i].name);
@@ -101,7 +101,9 @@ char				*handle_channels(t_env *env, int cs, char *input)
 	while (i < chans_nb)
 	{
 		insert_msg(env, cs, chans[i]);
+		free(chans[i].name);
 		++i;
 	}
+	free(chans);
 	return (NULL);
 }

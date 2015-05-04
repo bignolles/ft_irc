@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:24:04 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 10:00:42 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char			*get_client_input(t_env *env, int cs, char *input)
 		return (handle_cmd(env, cs, epur));
 	else
 	{
-		ret = ft_strjoin(env->fds[cs].nick, ": ");
+		ret = ft_strjoin(PUBLIC_OPEN, env->fds[cs].nick);
+		buff = ret;
+		ret = ft_strjoin(buff, PUBLIC_CLOSE);
+		free(buff);
 		buff = ret;
 		ret = ft_strjoin(buff, epur);
 		free(buff);

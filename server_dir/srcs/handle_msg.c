@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:34:46 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/04 10:01:09 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ static char		*add_sender(char *buf, char *sender)
 	buf = ft_strjoin(tmp, "\n");
 	free(tmp);
 	tmp = buf;
+	buf = ft_strjoin(tmp, PRIVATE_OPEN);
+	free(tmp);
+	tmp = buf;
 	buf = ft_strjoin(tmp, sender);
 	free(tmp);
 	tmp = buf;
-	buf = ft_strjoin(tmp, ": ");
+	buf = ft_strjoin(tmp, PRIVATE_CLOSE);
 	free(tmp);
 	return (buf);
 }
