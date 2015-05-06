@@ -6,13 +6,13 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/17 19:01:52 by marene            #+#    #+#             */
-/*   Updated: 2014/10/26 22:35:37 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/06 17:37:35 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-static int	ft_epur_len(char *s)
+static int		ft_epur_len(char *s)
 {
 	int		i;
 	int		len;
@@ -31,7 +31,18 @@ static int	ft_epur_len(char *s)
 	return (len);
 }
 
-char		*ft_epurstr(char *s)
+static int		insert_epur(char *epur, char c, char prev)
+{
+	if (!ft_iswhite(c))
+		*epur = c;
+	else if (!ft_iswhite(prev) && ft_iswhite(c))
+		*epur = ' ';
+	else
+		return (0);
+	return (1);
+}
+
+char			*ft_epurstr(char *s)
 {
 	char	*epur;
 	int		epur_len;
@@ -47,15 +58,10 @@ char		*ft_epurstr(char *s)
 		prev = ' ';
 		while (s[i])
 		{
-			if (!ft_iswhite(s[i]))
-				epur[j] = s[i];
-			else if (!ft_iswhite(prev) && ft_iswhite(s[i]))
-				epur[j] = ' ';
-			else
-				--j;
+			if (insert_epur(&epur[i], s[i], prev))
+				++j;
 			prev = s[i];
 			++i;
-			++j;
 		}
 	}
 	epur[epur_len] = '\0';

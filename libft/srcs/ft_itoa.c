@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/01 18:32:52 by marene            #+#    #+#             */
-/*   Updated: 2014/10/14 12:34:59 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/06 17:34:23 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char		*ft_makestr(char *str, int n, int pow, size_t len)
 
 char			*ft_itoa(int n)
 {
-	int		pow;
+	int			pow;
 	size_t		len;
 	char		*str;
 
