@@ -6,12 +6,13 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:37:58 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:35:08 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/06 17:18:21 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <server.h>
 #include <libft.h>
+#include <colors.h>
 
 static char		*add_nick(char *buf_who, char *nick)
 {
@@ -31,15 +32,17 @@ char			*handle_who(t_env *env, int cs, char *input)
 	int			i;
 	char		*buf_who;
 	char		*tmp;
+	char		*nick;
 
 	i = 0;
 	buf_who = NULL;
 	free(input);
 	while (i < env->max_fd)
 	{
+		nick = (i == cs) ? GREEN"yourself"DEFAULT_COLOR : env->fds[i].nick;
 		if (env->fds[i].chan != DEFAULT_CHAN
 				&& env->fds[i].chan == env->fds[cs].chan)
-			buf_who = add_nick(buf_who, env->fds[i].nick);
+			buf_who = add_nick(buf_who, nick);
 		++i;
 	}
 	tmp = env->fds[cs].buf_write;

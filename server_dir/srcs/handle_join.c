@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 18:01:13 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/06 11:41:50 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 static char		*get_chan_name(t_env *env, int cs, char *input)
 {
 	char		*epur;
+	char		*trim;
 	char		*ret;
 	char		*tmp;
 	size_t		join_len;
 
 	epur = ft_strtrim(input);
+	trim = ft_strtrim(epur);
 	join_len = ft_strlen("/join ");
-	if (ft_strlen(epur) <= join_len)
+	if (ft_strlen(trim) <= join_len || ft_strchr(trim + join_len, ' ')
+			|| ft_strchr(trim + join_len, '\t'))
 	{
 		free(input);
 		free(epur);
+		free(trim);
 		tmp = env->fds[cs].buf_write;
 		env->fds[cs].buf_write = ft_strjoin(tmp, "\nInvalid chan name");
 		free(tmp);
@@ -83,6 +87,12 @@ static char		*join_msg(t_env *env, int cs, int new_chan, char *chan)
 	char	*ret;
 	char	*tmp;
 
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, "\nYou joined ");
+	free(tmp);
+	tmp = env->fds[cs].buf_write;
+	env->fds[cs].buf_write = ft_strjoin(tmp, chan);
+	free(tmp);
 	ret = ft_strdup(env->fds[cs].nick);
 	tmp = ret;
 	ret = ft_strjoin(tmp, " has joined ");

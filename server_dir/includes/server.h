@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 18:42:05 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/06 17:06:13 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,24 @@
 # include <sys/select.h>
 # include <netinet/in.h>
 
-# define FD_FREE		0
-# define FD_SERV		1
-# define FD_CLIENT		2
-# define SERV_ERROR		-1
-# define SERV_OK		0
-# define SERV_USAGE		": <port>"
-# define QUEUE_SIZE		42
-# define BUF_SIZE		1024
-# define CMD_CHAR		'/'
-# define CMD_NB			6
-# define DEFAULT_CHAN	0
-# define CMD_ERROR		"Sorry, command not found :/"
+# define FD_FREE				0
+# define FD_SERV				1
+# define FD_CLIENT				2
+# define SERV_ERROR				-1
+# define SERV_OK				0
+# define SERV_USAGE				": <port>"
+# define QUEUE_SIZE				42
+# define BUF_SIZE				1024
+# define CMD_CHAR				'/'
+# define CMD_NB					8
+# define DEFAULT_CHAN			0
+# define CMD_ERROR				"Sorry, command not found :/"
+# define PRIVATE_OPEN			"["
+# define PRIVATE_CLOSE			"] "
+# define PUBLIC_OPEN			"<"
+# define PUBLIC_CLOSE			"> "
+# define USER_NO_EXIST			1
+# define USER_NOT_CONNECTED		2
 
 typedef struct				s_fd
 {
@@ -91,6 +97,7 @@ char						*get_client_input(t_env *env, int cs, char *input);
 t_channel					*create_channel(int id, char *name);
 int							add_channel(t_env *env, t_channel *new);
 char						*get_chan_by_id(t_channel *chan, int id);
+char						*get_chan_by_user(t_env *env, char *user, int *c);
 int							get_channels_nb(t_channel *chan);
 
 /*
@@ -102,6 +109,8 @@ char						*handle_join(t_env *env, int cs, char *input);
 char						*handle_who(t_env *env, int cs, char *input);
 char						*handle_msg(t_env *env, int cs, char *input);
 char						*handle_channels(t_env *env, int cs, char *input);
+char						*handle_find(t_env *env, int cs, char *input);
 char						*handle_help(t_env *env, int cs, char *input);
+char						*handle_where(t_env *env, int cs, char *input);
 
 #endif

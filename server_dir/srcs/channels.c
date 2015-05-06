@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 18:21:45 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 15:38:58 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/06 11:01:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,33 @@ char		*get_chan_by_id(t_channel *chan, int id)
 	int		i;
 
 	i = 0;
-	while (chan)
+	if (id != DEFAULT_CHAN)
 	{
-		if (chan->id == id)
-			return (chan->name);
-		chan = chan->next;
+		while (chan)
+		{
+			if (chan->id == id)
+				return (chan->name);
+			chan = chan->next;
+		}
 	}
+	return (NULL);
+}
+
+char		*get_chan_by_user(t_env *env, char *user_name, int *code)
+{
+	int			i;
+
+	i = 0;
+	while (i < env->max_fd)
+	{
+		if (env->fds[i].nick && ft_strequ(env->fds[i].nick, user_name))
+		{
+			*code = USER_NOT_CONNECTED;
+			return (get_chan_by_id(env->chans, env->fds[i].chan));
+		}
+		++i;
+	}
+	*code = USER_NO_EXIST;
 	return (NULL);
 }
 
