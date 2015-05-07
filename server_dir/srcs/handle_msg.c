@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2015/05/04 10:01:09 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 12:29:13 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char			*handle_msg(t_env *env, int cs, char *input)
 	int		i;
 	int		j;
 
-	args = ft_strsplit(input, ' ');
+	args = ft_ws_split(input);
 	if (args[1] != NULL && args[2] != NULL)
 	{
 		i = -1;

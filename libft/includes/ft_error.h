@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/14 14:23:32 by marene            #+#    #+#             */
-/*   Updated: 2014/11/02 19:11:49 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 09:21:06 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 
-int		tryint(int err, int res, char *error);
+int			tryint(int err, int res, char *error);
 void		*tryptr(void *err, void *res, char *error);
 
 #endif

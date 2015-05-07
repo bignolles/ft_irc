@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2015/05/06 11:41:50 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 12:34:11 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,21 @@
 
 static char		*get_chan_name(t_env *env, int cs, char *input)
 {
-	char		*epur;
-	char		*trim;
 	char		*ret;
 	char		*tmp;
 	size_t		join_len;
 
-	epur = ft_strtrim(input);
-	trim = ft_strtrim(epur);
 	join_len = ft_strlen("/join ");
-	if (ft_strlen(trim) <= join_len || ft_strchr(trim + join_len, ' ')
-			|| ft_strchr(trim + join_len, '\t'))
+	if (ft_strlen(input) <= join_len)
 	{
 		free(input);
-		free(epur);
-		free(trim);
 		tmp = env->fds[cs].buf_write;
 		env->fds[cs].buf_write = ft_strjoin(tmp, "\nInvalid chan name");
 		free(tmp);
 		return (NULL);
 	}
-	ret = ft_strdup(epur + join_len);
-	free(epur);
+	ret = ft_strdup(input + join_len);
+	free(input);
 	return (ret);
 }
 
@@ -100,7 +93,6 @@ static char		*join_msg(t_env *env, int cs, int new_chan, char *chan)
 	tmp = ret;
 	ret = ft_strjoin(tmp, chan);
 	free(tmp);
-	free(chan);
 	leave_chan(env, cs, new_chan);
 	return (ret);
 }
@@ -118,18 +110,15 @@ char			*handle_join(t_env *env, int cs, char *input)
 	{
 		if (tmp->name && ft_strequ(tmp->name, chan_name))
 		{
-			free(input);
 			ret = join_msg(env, cs, tmp->id, chan_name);
 			return (ret);
 		}
 		else if (tmp->next == NULL)
 		{
 			tmp->next = create_channel(tmp->id + 1, chan_name);
-			free(input);
 			return (join_msg(env, cs, tmp->id + 1, chan_name));
 		}
 		tmp = tmp->next;
 	}
-	free(input);
 	return (NULL);
 }

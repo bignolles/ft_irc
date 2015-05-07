@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/04 16:58:42 by marene            #+#    #+#             */
-/*   Updated: 2015/05/06 17:46:28 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 12:29:35 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char			*handle_find(t_env *env, int cs, char *input)
 	char	*ret;
 	int		code;
 
-	split = ft_strsplit(input, ' ');
+	split = ft_ws_split(input);
 	if (split[1] != NULL && split[2] == NULL)
 	{
 		if ((ret = get_chan_by_user(env, split[1], &code)) != NULL)

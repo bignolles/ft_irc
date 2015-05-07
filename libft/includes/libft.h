@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/20 22:33:09 by marene            #+#    #+#             */
-/*   Updated: 2014/10/30 13:55:57 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 12:25:54 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char			*ft_strncpy(char *s1, const char *s2, size_t len);
 char			*ft_strrchr(const char *s, char c);
 char			*ft_strnstr(const char *s1, const char *s2, size_t len);
 char			**ft_strsplit(char const *s, char c);
+char			**ft_ws_split(char const *s);
 char			*ft_strstr(const char *s1, const char *s2);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strcpy(char *s1, const char *s2);

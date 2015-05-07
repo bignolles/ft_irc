@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:51:56 by marene            #+#    #+#             */
-/*   Updated: 2015/05/04 16:39:52 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 10:02:31 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char			*handle_nick(t_env *env, int cs, char *input)
 	nick_len = ft_strlen("/NICK ");
 	if (nick_len < ft_strlen(input))
 	{
-		nick = ft_strsub(input, nick_len, ft_strlen(input) - nick_len - 1);
+		nick = ft_strsub(input, nick_len, ft_strlen(input) - nick_len);
 		free(input);
 		input = NULL;
 		if (is_valid(env, cs, nick))
