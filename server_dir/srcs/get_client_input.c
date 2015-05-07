@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2015/05/07 12:33:45 by marene           ###   ########.fr       */
+/*   Updated: 2015/05/07 15:09:32 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static char		*handle_cmd(t_env *env, int cs, char *input)
 	epur = ft_epurstr(input);
 	while (i < CMD_NB)
 	{
-		sep = input[ft_strlen(g_cmd_table[i].cmd)];
+		sep = (ft_strlen(input) >= ft_strlen(g_cmd_table[i].cmd)) ?
+			input[ft_strlen(g_cmd_table[i].cmd)] : '\0';
 		if (ft_strstr(input, g_cmd_table[i].cmd) == input
 				&& (ft_iswhite(sep) || sep == '\0'))
 		{
