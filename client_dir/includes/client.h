@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2015/04/30 17:25:42 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/26 19:44:16 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <arpa/inet.h>
 # include <netinet/in.h>
 # include <sys/socket.h>
+# include "ringbuff.h"
 
 # define CLI_OK			1
 # define CLI_FAIL		0
@@ -29,6 +30,7 @@
 # define FD_IO			2
 # define CONNECT_CMD	"/connect"
 # define PROMPT			"?>"
+# define IRC_END		"\n\r"
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
 
@@ -43,13 +45,15 @@ typedef struct				s_fd
 
 typedef struct				s_env
 {
-	int			port;
-	in_addr_t	s_addr;
-	int			s_sock;
-	fd_set		fd_read;
-	fd_set		fd_write;
-	char		*buf_read;
-	char		*buf_write;
+	int					port;
+	in_addr_t			s_addr;
+	int					s_sock;
+	fd_set				fd_read;
+	fd_set				fd_write;
+	t_ringbuff			*buf_write;
+	t_ringbuff			*buf_read;
+//	char				*buf_read;
+//	char				*buf_write;
 }							t_env;
 
 typedef struct sockaddr		t_sockaddr;
@@ -62,6 +66,7 @@ void						read_from_client(t_env *env);
 void						read_from_serv(t_env *env);
 void						write_to_serv(t_env *env);
 void						init_env(t_env *env);
+void						env_delete(t_env *env);
 void						run_client(t_env *env);
 void						check_fd(t_env *env);
 void						wait_for_connect(t_env *env);

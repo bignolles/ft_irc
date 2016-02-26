@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 18:37:49 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/26 19:45:44 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,27 @@
 
 void	read_from_serv(t_env *env)
 {
-	char	buff[BUF_SIZE + 1];
+	char	buff[RINGBUFF_CHUNK_SIZE + 1];
+	char	*to_print;
 	int		ret;
 
-	ret = recv(env->s_sock, buff, BUF_SIZE, 0);
+	to_print = NULL;
+	ret = recv(env->s_sock, buff, RINGBUFF_CHUNK_SIZE, 0);
 	if (ret <= 0)
 	{
 		ft_putendl("Disconnected from server");
-		close(env->s_sock);
-		free(env->buf_read);
-		free(env->buf_write);
+		env_delete(env);
 		init_env(env);
 		wait_for_connect(env);
 	}
-	buff[ret] = '\0';
-	ft_putendl(buff);
+	else
+	{
+		buff[ret] = '\0';
+		ringbuff_write(env->buf_read, buff, ret);
+		ret = ringbuff_read_to_strstr(env->buf_read, &to_print, IRC_END);
+		if (ret > 0)
+			ft_putendl(to_print);
+		//ft_putendl(buff);
+		//TODO add printing of buf_write when a full message has been received
+	}
 }
