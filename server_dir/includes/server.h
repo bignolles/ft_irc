@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2016/02/25 16:33:53 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/26 16:37:20 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ typedef struct				s_fd
 	int				chan;
 	void			(*fct_read)();
 	void			(*fct_write)();
-	//char			buf_read[BUF_SIZE + 1];
-	//char			*buf_write;
+	char			*nick;
 	t_circbuff		*buf_read;
 	t_circbuff		*buf_write;
-	char			*nick;
+	//char			buf_read[BUF_SIZE + 1];
+	//char			*buf_write;
 }							t_fd;
 
 typedef struct				s_channel
