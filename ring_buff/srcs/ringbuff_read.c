@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 15:21:12 by marene            #+#    #+#             */
-/*   Updated: 2016/02/26 19:38:28 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/29 16:22:20 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		ringbuff_read(t_ringbuff *buff, char *chunk, int len)
 {
-	int		read_size;
 	int		ret;
 
 	ret = ringbuff_read_cpy(buff, chunk, len);

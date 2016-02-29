@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2016/02/26 19:45:44 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/29 16:21:05 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ void	read_from_serv(t_env *env)
 	{
 		buff[ret] = '\0';
 		ringbuff_write(env->buf_read, buff, ret);
-		ret = ringbuff_read_to_strstr(env->buf_read, &to_print, IRC_END);
+		ret = ringbuff_read_to_str(env->buf_read, &to_print, IRC_END);
 		if (ret > 0)
 			ft_putendl(to_print);
-		//ft_putendl(buff);
-		//TODO add printing of buf_write when a full message has been received
 	}
 }

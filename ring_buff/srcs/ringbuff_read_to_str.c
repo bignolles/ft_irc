@@ -6,10 +6,11 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 19:47:12 by marene            #+#    #+#             */
-/*   Updated: 2016/02/26 20:14:06 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/29 16:22:54 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ringbuff.h"
 
 int					ringbuff_read_to_str(t_ringbuff *buff, char **tmp, char *str)

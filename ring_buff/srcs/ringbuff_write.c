@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:01:47 by marene            #+#    #+#             */
-/*   Updated: 2016/02/26 19:04:58 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/29 18:42:01 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int			ringbuff_write(t_ringbuff *buff, char *chunk, int len)
 {
-	if (ringbuff_err_not_fatal(buff->errno) && len > 0
-			&& ringbuff_has_space(buff, len))
+	if (ringbuff_has_space(buff, len))
 	{
 		ringbuff_write_cpy(buff, chunk, len);
 		buff->end = (buff->end + len) % buff->len;

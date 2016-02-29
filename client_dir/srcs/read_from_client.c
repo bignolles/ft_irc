@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/02/26 18:35:13 by marene           ###   ########.fr       */
+/*   Updated: 2016/02/29 19:26:36 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void		read_from_client(t_env *env)
 			close(env->s_sock);
 			exit(0);
 		}
-		ringbuff_write(env->buf_write, buffer, ret);
+//		ft_putstr("env->buf_write read space : ");
+//		ft_putnbr(ringbuff_get_read_space(env->buf_write));
+//		ft_putchar('\n');
+//		ft_putendl(env->buf_write->buff);
 	}
 }
