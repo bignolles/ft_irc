@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2016/02/29 18:46:21 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 15:12:16 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ void			run_client(t_env *env)
 		FD_SET(0, &env->fd_read);
 		if (ringbuff_get_read_space(env->buf_write) > 0)
 		{
-			ft_putstr("env->buf_write : ");
-			ft_putstr(ft_strtrim(env->buf_write->buff));
-			ft_putstr(" (");
-			ft_putnbr(env->buf_write->start);
-			ft_putstr(" - ");
-			ft_putnbr(env->buf_write->end);
-			ft_putstr(" -> ");
-			ft_putnbr(ringbuff_get_read_space(env->buf_write));
-			ft_putendl(")");
 			FD_SET(env->s_sock, &env->fd_write);
 		}
 		else

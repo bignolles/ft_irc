@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2015/05/01 14:15:50 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 15:39:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void			client_read(t_env *env, int cs)
 	int		i;
 	char	*cmd_ret;
 
+	ft_putendl("client_read");
 	ret = recv(cs, env->fds[cs].buf_read, BUF_SIZE, 0);
+	env->fds[cs].buf_read[ret] = '\0';
+	ft_putendl(env->fds[cs].buf_read);
 	if (ret <= 0)
 		end_connection(env, cs);
 	else

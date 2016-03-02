@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2016/02/29 16:44:02 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 16:01:32 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define FD_IO			2
 # define CONNECT_CMD	"/connect"
 # define PROMPT			"?>"
-# define IRC_END		"\n"
+# define IRC_END		"\n\r"
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
 

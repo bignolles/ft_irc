@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2015/05/07 12:34:11 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 15:57:28 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char			*handle_join(t_env *env, int cs, char *input)
 	char		*chan_name;
 	char		*ret;
 
+	ft_putendl("handle_join");
 	tmp = env->chans;
 	if ((chan_name = get_chan_name(env, cs, input)) == NULL)
 		return (NULL);

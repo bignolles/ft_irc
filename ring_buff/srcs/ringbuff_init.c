@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:27:23 by marene            #+#    #+#             */
-/*   Updated: 2016/02/26 13:20:55 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 13:56:18 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 t_ringbuff		*ringbuff_construct(void)
 {
 	t_ringbuff	*ret;
+	int			i;
 
 	ret = malloc(sizeof(t_ringbuff));
 	if (ret != NULL)
@@ -33,6 +34,12 @@ t_ringbuff		*ringbuff_construct(void)
 			ret->end = 0;
 			ret->len = RINGBUFF_BUFF_SIZE;
 			ret->errno = NO_ERROR;
+			i = 0;
+			while (i < ret->len)
+			{
+				ret->buff[i] = '\0';
+				++i;
+			}
 		}
 	}
 	return (ret);

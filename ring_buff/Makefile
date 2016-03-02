@@ -1,13 +1,12 @@
 CC =				clang
-AR =				ar
-NAME =				libring_buff.a
+NAME =				./libring_buff.a
+UNIT_NAME =			tests
 SRCS_DIR =			./srcs/
 INCLUDES_DIR =		./includes/
 OBJ_DIR =			./obj/
-LIBFT_DIR =			../libft
-LIBFT_INCLUDES =	$(LIBFT_DIR)/includes/
-LIBFT_LIB =			$(LIBFT_DIR)/libft.a
+UNIT_DIR =			./unit_tests/
 SRCS =				ringbuff_destruct.c\
+					ringbuff_dump.c\
 					ringbuff_err_no_fatal.c\
 					ringbuff_get_space.c\
 					ringbuff_has_space.c\
@@ -18,13 +17,12 @@ SRCS =				ringbuff_destruct.c\
 					ringbuff_write.c\
 					ringbuff_write_cpy.c
 OBJ =				$(SRCS:.c=.o)
+UNIT_SRCS =			main.c
+UNIT_OBJ =			$(UNIT_SRCS:.c=.o)
 CFLAGS =			-Wall -Wextra -Werror -I$(INCLUDES_DIR) -c -o
 LDFLAGS =			-q
 
-all: $(LIBFT_LIB) $(OBJ_DIR) $(NAME)
-
-$(LIBFT_LIB):
-	make -C $(LIBFT_DIR)
+all: $(OBJ_DIR) $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $@
@@ -42,5 +40,13 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+unit: $(UNIT_NAME)
+
+$(UNIT_NAME): $(addprefix $(UNIT_DIR), $(UNIT_OBJ))
+	$(CC) -L. -lring_buff $^ -o $@
+
+$(UNIT_DIR)%.o: $(UNIT_DIR)%.c
+	$(CC) -Wall -Wextra -Werror -I./includes/ -c -o $@ $<
 
 .PHONY: all clean fclean re
