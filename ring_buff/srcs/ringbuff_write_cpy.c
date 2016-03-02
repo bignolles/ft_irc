@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:59:35 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 14:21:54 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 17:22:32 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ringbuff_write_cpy(t_ringbuff *buff, char *chunk, int len)
 
 	i = 0;
 	max = ringbuff_get_write_space(buff);
-	while (i < len && i < max)
+	while (i < len && i < max && chunk[i])
 	{
 		j = (buff->end + i) % buff->len;
 		buff->buff[j] = chunk[i];

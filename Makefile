@@ -8,7 +8,7 @@ LIB =				ft
 LIB_DIR =			./libft/
 LIB_INCLUDES =		$(LIB_DIR)includes/
 LIBFT =				$(LIB_DIR)libft.a
-CFLAGS =			-Wall -Wextra -Werror -I ./includes -I$(LIB_INCLUDES) -g -c -o
+CFLAGS =			-Wall -Wextra -Werror -I$(LIB_INCLUDES) -g -c -o
 CLI_CFLAGS =		-I./client_dir/includes -I$(RINGBUFF_INCLUDES)
 SERV_CFLAGS =		-I./server_dir/includes -I$(RINGBUFF_INCLUDES)
 LDFLAGS =			-L$(LIB_DIR) -l$(LIB) -L$(RINGBUFF_DIR) -l$(RINGBUFF) -o
@@ -21,7 +21,7 @@ CLI_SRCS =			main.c					create_client.c\
 					init_env.c				read_from_serv.c\
 					check_fd.c				run_client.c\
 					get_opt.c				usage.c\
-					wait_for_connect.c
+					wait_for_connect.c		env_delete.c
 SERV_SRCS =			main.c					clean_fd.c\
 					disp.c					get_opt.c\
 					init_env.c				run_srv.c\

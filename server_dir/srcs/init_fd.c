@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 13:51:11 by marene            #+#    #+#             */
-/*   Updated: 2014/11/02 19:09:41 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 17:45:57 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_fd(t_env *env)
 		if (env->fds[i].type != FD_FREE)
 		{
 			FD_SET(i, &env->fd_read);
-			if (ft_strlen(env->fds[i].buf_write) > 0)
+			if (ringbuff_get_read_space(env->fds[i].buf_write) > 0)
 				FD_SET(i, &env->fd_write);
 			env->max = MAX(env->max, i);
 		}

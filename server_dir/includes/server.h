@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2016/02/29 16:26:32 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 17:43:47 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <sys/select.h>
 # include <netinet/in.h>
-# include "circbuff.h"
+# include "ringbuff.h"
 
 # define FD_FREE				0
 # define FD_SERV				1
@@ -43,10 +43,10 @@ typedef struct				s_fd
 	void			(*fct_read)();
 	void			(*fct_write)();
 	char			*nick;
-//	t_circbuff		*buf_read;
-//	t_circbuff		*buf_write;
-	char			buf_read[BUF_SIZE + 1];
-	char			*buf_write;
+	t_ringbuff		*buf_read;
+	t_ringbuff		*buf_write;
+//	char			buf_read[BUF_SIZE + 1];
+//	char			*buf_write;
 }							t_fd;
 
 typedef struct				s_channel

@@ -6,12 +6,12 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 12:38:55 by marene            #+#    #+#             */
-/*   Updated: 2014/10/31 15:58:52 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/02 17:43:23 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <server.h>
+#include "server.h"
 
 void	clean_fd(t_fd *fd)
 {
@@ -19,6 +19,9 @@ void	clean_fd(t_fd *fd)
 	fd->chan = DEFAULT_CHAN;
 	fd->fct_read = NULL;
 	fd->fct_write = NULL;
-	fd->buf_write = NULL;
+	ringbuff_destruct(&(fd->buf_read));
+	ringbuff_destruct(&(fd->buf_write));
+	fd->buf_read = ringbuff_construct();
+	fd->buf_write = ringbuff_construct();
 	fd->nick = NULL;
 }
