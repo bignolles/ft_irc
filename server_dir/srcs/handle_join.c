@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 15:57:28 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 20:00:07 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@
 static char		*get_chan_name(t_env *env, int cs, char *input)
 {
 	char		*ret;
-	char		*tmp;
 	size_t		join_len;
 
 	join_len = ft_strlen("/join ");
 	if (ft_strlen(input) <= join_len)
 	{
 		free(input);
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, "\nInvalid chan name");
-		free(tmp);
+		ringbuff_write(env->fds[cs].buf_write, "Invalid chan name", RINGBUFF_CHUNK_SIZE);
 		return (NULL);
 	}
 	ret = ft_strdup(input + join_len);
@@ -53,7 +50,6 @@ static char		*leave_msg(t_channel *chan, int id, char *nick)
 static void		leave_chan(t_env *env, int cs, int new_chan)
 {
 	char	*msg;
-	char	*tmp;
 	int		i;
 
 	if (env->fds[cs].chan != DEFAULT_CHAN)
@@ -63,11 +59,7 @@ static void		leave_chan(t_env *env, int cs, int new_chan)
 		while (i < env->max_fd)
 		{
 			if (i != cs && env->fds[i].chan == env->fds[cs].chan)
-			{
-				tmp = env->fds[i].buf_write;
-				env->fds[i].buf_write = ft_strjoin(tmp, msg);
-				free(tmp);
-			}
+				ringbuff_write(env->fds[i].buf_write, msg, ft_strlen(msg)); //  quelque part nan?
 			++i;
 		}
 		free(msg);
@@ -80,12 +72,8 @@ static char		*join_msg(t_env *env, int cs, int new_chan, char *chan)
 	char	*ret;
 	char	*tmp;
 
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, "\nYou joined ");
-	free(tmp);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, chan);
-	free(tmp);
+	ringbuff_write(env->fds[cs].buf_write, "You joined ", RINGBUFF_CHUNK_SIZE);
+	ringbuff_write(env->fds[cs].buf_write, chan, ft_strlen(chan));
 	ret = ft_strdup(env->fds[cs].nick);
 	tmp = ret;
 	ret = ft_strjoin(tmp, " has joined ");

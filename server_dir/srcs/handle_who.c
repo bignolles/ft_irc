@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:37:58 by marene            #+#    #+#             */
-/*   Updated: 2015/05/06 17:18:21 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 14:33:04 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char			*handle_who(t_env *env, int cs, char *input)
 {
 	int			i;
 	char		*buf_who;
-	char		*tmp;
 	char		*nick;
 
 	i = 0;
@@ -45,8 +44,6 @@ char			*handle_who(t_env *env, int cs, char *input)
 			buf_who = add_nick(buf_who, nick);
 		++i;
 	}
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, buf_who);
-	free(buf_who);
+	ringbuff_write(env->fds[cs].buf_write, buf_who, ft_strlen(buf_who));
 	return (NULL);
 }

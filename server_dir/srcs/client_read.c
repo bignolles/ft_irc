@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 18:50:04 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 19:46:33 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void		end_connection(t_env *env, int cs)
 {
 	disp_client_away(env, cs);
 	close(cs);
-	free(env->fds[cs].buf_write);
 	free(env->fds[cs].nick);
 	clean_fd(&env->fds[cs]);
 }
@@ -59,9 +58,12 @@ void			client_read(t_env *env, int cs)
 	char	*to_read;
 	char	buff[RINGBUFF_CHUNK_SIZE + 1];
 
+	ft_putendl("client_read");
 	buff[RINGBUFF_CHUNK_SIZE] = '\0';
 	ret = recv(cs, buff, RINGBUFF_CHUNK_SIZE, 0);
 	buff[ret] = '\0';
+	ft_putstr("\t-> ");
+	ft_putendl(buff);
 	if (ret <= 0)
 		end_connection(env, cs);
 	else
@@ -78,8 +80,10 @@ void			client_read(t_env *env, int cs)
 				if (env->fds[i].type == FD_CLIENT && i != cs &&
 						env->fds[i].chan == env->fds[cs].chan
 						&& cmd_ret != NULL)
+				{
 					ringbuff_write(env->fds[i].buf_write, cmd_ret, ft_strlen(cmd_ret));
-					//add_input(env, cmd_ret, i);
+					ringbuff_write(env->fds[i].buf_write, "\n\r", 2);
+				}
 				++i;
 			}
 			free(cmd_ret);

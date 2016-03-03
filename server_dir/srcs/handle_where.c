@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/06 17:06:20 by marene            #+#    #+#             */
-/*   Updated: 2015/05/07 10:07:55 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:11:17 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 char			*handle_where(t_env *env, int cs, char *input)
 {
-	char	*buf;
 	char	*msg;
 
 	if (ft_strlen(input) != ft_strlen("/where"))
@@ -24,9 +23,7 @@ char			*handle_where(t_env *env, int cs, char *input)
 		msg = (env->fds[cs].chan == DEFAULT_CHAN) ?
 				ft_strdup("\nYou are not connected to any channel") :
 				ft_strjoin("\n", get_chan_by_id(env->chans, env->fds[cs].chan));
-	buf = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(buf, msg);
-	free(buf);
+	ringbuff_write(env->fds[cs].buf_write, msg, ft_strlen(msg));
 	free(msg);
 	free(input);
 	return (NULL);

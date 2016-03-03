@@ -19,7 +19,7 @@ SRCS =				ringbuff_destruct.c\
 OBJ =				$(SRCS:.c=.o)
 UNIT_SRCS =			main.c
 UNIT_OBJ =			$(UNIT_SRCS:.c=.o)
-CFLAGS =			-Wall -Wextra -Werror -I$(INCLUDES_DIR) -c -o
+CFLAGS =			-Wall -Wextra -Werror -I$(INCLUDES_DIR) -c -g -o
 LDFLAGS =			-q
 
 all: $(OBJ_DIR) $(NAME)

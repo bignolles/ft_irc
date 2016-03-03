@@ -6,9 +6,11 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 15:45:15 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 19:59:10 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# include <stdio.h>
 
 #include <unistd.h>
 #include <libft.h>
@@ -46,10 +48,8 @@ void		read_from_client(t_env *env)
 			close(env->s_sock);
 			exit(0);
 		}
-//		ft_putstr("env->buf_write read space : ");
-//		ft_putnbr(ringbuff_get_read_space(env->buf_write));
-//		ft_putchar('\n');
-//		ft_putendl(env->buf_write->buff);
+		ringbuff_write(env->buf_write, buffer, ret);
+		if (ft_strchr(buffer, '\n') == buffer + ft_strlen(buffer) - 1)
+			ringbuff_write(env->buf_write, "\n\r", 2);
 	}
-	ringbuff_write(env->buf_write, buffer, ret);
 }

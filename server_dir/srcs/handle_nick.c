@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:51:56 by marene            #+#    #+#             */
-/*   Updated: 2015/05/07 10:02:31 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 11:20:04 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int		is_valid(t_env *env, int cs, char *nick)
 
 char			*handle_nick(t_env *env, int cs, char *input)
 {
-	char		*buff;
 	char		*nick;
 	size_t		nick_len;
 
@@ -78,8 +77,6 @@ char			*handle_nick(t_env *env, int cs, char *input)
 		free(nick);
 	}
 	free(input);
-	buff = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(buff, "\ninvalid nickname");
-	free(buff);
+	ringbuff_write(env->fds[cs].buf_write, "\n\rinvalid nickname", RINGBUFF_CHUNK_SIZE);
 	return (NULL);
 }

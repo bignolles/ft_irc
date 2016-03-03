@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 17:08:10 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 19:54:08 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	read_from_serv(t_env *env)
 		{
 			ft_putendl(to_print);
 			ringbuff_read(env->buf_read, to_print, ret);
+		}
+		else
+		{
+			ft_putendl("== NOPE ==");
+			ringbuff_dump(env->buf_read);
 		}
 	}
 }

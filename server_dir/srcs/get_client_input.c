@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 18:50:38 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 11:15:43 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ extern t_cmd	g_cmd_table[CMD_NB];
 static char		*handle_cmd(t_env *env, int cs, char *input)
 {
 	int		i;
-	char	*tmp;
 	char	*epur;
 	char	sep;
 
@@ -36,10 +35,7 @@ static char		*handle_cmd(t_env *env, int cs, char *input)
 		}
 		++i;
 	}
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, "\nCommand not found.");
-	free(tmp);
-	free(input);
+	ringbuff_write(env->fds[cs].buf_write, "\n\rCommand not found.", RINGBUFF_CHUNK_SIZE);
 	return (NULL);
 }
 

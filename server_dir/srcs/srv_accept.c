@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 11:03:10 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 17:45:13 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 19:53:43 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void		welcome_msg(t_env *env, int cs)
 		"\n\nAnd a list of all the commands you can use:",
 		RINGBUFF_CHUNK_SIZE);
 	handle_help(env, cs, NULL);
+	ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
 }
 
 void			srv_accept(t_env *env, int s)

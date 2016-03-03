@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2015/05/07 12:29:13 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 14:59:20 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,49 +28,24 @@ static void		free_args(char **args)
 
 static void		send_a_message(t_env *env, int c_nb, char *msg)
 {
-	char	*tmp;
-
-	tmp = env->fds[c_nb].buf_write;
-	env->fds[c_nb].buf_write = ft_strjoin(tmp, msg);
-	free(tmp);
-	tmp = env->fds[c_nb].buf_write;
-	env->fds[c_nb].buf_write = ft_strjoin(tmp, " ");
-	free(tmp);
+	ringbuff_write(env->fds[c_nb].buf_write, msg, ft_strlen(msg));
+	ringbuff_write(env->fds[c_nb].buf_write, " ", 1);
 }
 
 static void		unresolved_dest(t_env *env, char *dest, int cs)
 {
-	char	*tmp;
-
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
-	free(tmp);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, dest);
-	free(tmp);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp,
-			" does not exist, or is not connected");
-	free(tmp);
+	ringbuff_write(env->fds[cs].buf_write, "\n", 1);
+	ringbuff_write(env->fds[cs].buf_write, dest, ft_strlen(dest));
+	ringbuff_write(env->fds[cs].buf_write, " does not exist, or is not connected", RINGBUFF_CHUNK_SIZE);// Peut etre \n\r nan?
 }
 
-static char		*add_sender(char *buf, char *sender)
+static void		add_sender(t_ringbuff *buff, char *sender)
 {
-	char	*tmp;
 
-	tmp = buf;
-	buf = ft_strjoin(tmp, "\n");
-	free(tmp);
-	tmp = buf;
-	buf = ft_strjoin(tmp, PRIVATE_OPEN);
-	free(tmp);
-	tmp = buf;
-	buf = ft_strjoin(tmp, sender);
-	free(tmp);
-	tmp = buf;
-	buf = ft_strjoin(tmp, PRIVATE_CLOSE);
-	free(tmp);
-	return (buf);
+	ringbuff_write(buff, "\n\r", 2);
+	ringbuff_write(buff, PRIVATE_OPEN, ft_strlen(PRIVATE_OPEN));
+	ringbuff_write(buff, sender, ft_strlen(sender));
+	ringbuff_write(buff, PRIVATE_CLOSE, ft_strlen(PRIVATE_CLOSE));
 }
 
 char			*handle_msg(t_env *env, int cs, char *input)
@@ -88,8 +63,7 @@ char			*handle_msg(t_env *env, int cs, char *input)
 			if (env->fds[i].nick && ft_strequ(args[1], env->fds[i].nick))
 			{
 				j = 1;
-				env->fds[i].buf_write = add_sender(env->fds[i].buf_write,
-						env->fds[cs].nick);
+				add_sender(env->fds[i].buf_write, env->fds[cs].nick);
 				while (args[++j])
 					send_a_message(env, i, args[j]);
 				free_args(args);

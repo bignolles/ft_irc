@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2015/05/04 16:51:56 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/03 19:45:30 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,13 @@ static t_chan_list	*get_channels_recap(t_env *env, int cs, int *chan_nb)
 static void			insert_msg(t_env *env, int cs, t_chan_list chan)
 {
 	char	*tmp;
-	char	*tmp2;
 
-	tmp2 = ft_itoa(chan.co_nb);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, "\n");
-	free(tmp);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, chan.name);
-	free(tmp);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, " [");
-	free(tmp);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
-	tmp = env->fds[cs].buf_write;
-	env->fds[cs].buf_write = ft_strjoin(tmp, "]");
+	tmp = ft_itoa(chan.co_nb);
+	ringbuff_write(env->fds[cs].buf_write, "\n", 2);
+	ringbuff_write(env->fds[cs].buf_write, chan.name, ft_strlen(chan.name));
+	ringbuff_write(env->fds[cs].buf_write, "[", 1);
+	ringbuff_write(env->fds[cs].buf_write, tmp, ft_strlen(tmp));
+	ringbuff_write(env->fds[cs].buf_write, "]", 1);
 	free(tmp);
 }
 
@@ -97,16 +86,13 @@ char				*handle_channels(t_env *env, int cs, char *input)
 	t_chan_list		*chans;
 	int				chans_nb;
 	int				i;
-	char			*tmp;
 
 	free(input);
 	i = 0;
 	chans = get_channels_recap(env, cs, &chans_nb);
 	if (chans_nb == 0)
 	{
-		tmp = env->fds[cs].buf_write;
-		env->fds[cs].buf_write = ft_strjoin(tmp, "\nNo channels (yet)");
-		free(tmp);
+		ringbuff_write(env->fds[cs].buf_write, "No channels (yet)", RINGBUFF_CHUNK_SIZE);
 	}
 	while (i < chans_nb)
 	{
