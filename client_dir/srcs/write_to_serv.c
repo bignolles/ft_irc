@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 14:35:22 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 16:19:09 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 13:02:16 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	write_to_serv(t_env *env)
 	size_t	len;
 	char	buff[RINGBUFF_CHUNK_SIZE + 1];
 
-	ft_putstr("write_to_serv: ");
 	len = ringbuff_read_cpy(env->buf_write, buff, RINGBUFF_CHUNK_SIZE);
 	buff[len] = '\0';
-	ft_putendl(buff);
 	ret = tryint(-1, send(env->s_sock, buff, len, 0), "send");
 	ringbuff_read(env->buf_write, buff, ret);
 }

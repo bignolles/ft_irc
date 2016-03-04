@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 14:59:20 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 17:36:10 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void		send_a_message(t_env *env, int c_nb, char *msg)
 
 static void		unresolved_dest(t_env *env, char *dest, int cs)
 {
-	ringbuff_write(env->fds[cs].buf_write, "\n", 1);
 	ringbuff_write(env->fds[cs].buf_write, dest, ft_strlen(dest));
 	ringbuff_write(env->fds[cs].buf_write, " does not exist, or is not connected", RINGBUFF_CHUNK_SIZE);// Peut etre \n\r nan?
 }
@@ -42,7 +41,6 @@ static void		unresolved_dest(t_env *env, char *dest, int cs)
 static void		add_sender(t_ringbuff *buff, char *sender)
 {
 
-	ringbuff_write(buff, "\n\r", 2);
 	ringbuff_write(buff, PRIVATE_OPEN, ft_strlen(PRIVATE_OPEN));
 	ringbuff_write(buff, sender, ft_strlen(sender));
 	ringbuff_write(buff, PRIVATE_CLOSE, ft_strlen(PRIVATE_CLOSE));
@@ -66,6 +64,7 @@ char			*handle_msg(t_env *env, int cs, char *input)
 				add_sender(env->fds[i].buf_write, env->fds[cs].nick);
 				while (args[++j])
 					send_a_message(env, i, args[j]);
+				ringbuff_write(env->fds[i].buf_write, "\n\r", 2);
 				free_args(args);
 				return (NULL);
 			}

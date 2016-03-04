@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 11:16:22 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 15:13:49 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 12:48:02 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ void	client_write(t_env *env, int cs)
 	ft_putstr("\t-> ");
 	ft_putendl(buff);
 	ret = tryint(-1, send(cs, buff, len, 0), "send");
+	ft_putstr("buff before read : ");
+	ringbuff_dump(env->fds[cs].buf_write);
+	ft_putchar('\n');
 	ringbuff_read(env->fds[cs].buf_write, buff, len);
+	ft_putstr("buff after read : ");
+	ringbuff_dump(env->fds[cs].buf_write);
+	ft_putchar('\n');
 }

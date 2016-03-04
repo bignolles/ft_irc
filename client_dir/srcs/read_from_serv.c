@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 19:54:08 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 17:27:57 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ void	read_from_serv(t_env *env)
 		ret = ringbuff_read_to_str(env->buf_read, &to_print, IRC_END);
 		if (ret > 0)
 		{
-			ft_putendl(to_print);
+			if (ft_strlen(to_print) > 2) // if there is something else than a mere "\n\r" to print. Find a cleaner way to achieve it server side by
+				// avoiding sending bare "\n\r" packets of data
+			{
+				write(1, to_print, ret - 2);
+				ft_putchar('\n');
+			}
 			ringbuff_read(env->buf_read, to_print, ret);
 		}
 		else

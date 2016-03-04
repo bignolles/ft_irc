@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 16:35:27 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 12:41:49 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void			run_client(t_env *env)
 		}
 		else
 		{
-			ft_putnbr(ringbuff_get_read_space(env->buf_write));
 			ft_putstr(PROMPT);
 			FD_SET(1, &env->fd_read);
 		}

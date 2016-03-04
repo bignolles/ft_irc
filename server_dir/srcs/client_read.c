@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 19:46:33 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 17:16:09 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <ft_error.h>
 #include <server.h>
 
+/*
+ * TODO : function commented for the time being, remove it if further test prove that it was indeed useless
 static void		zero_buff(char *buff, int start)
 {
 	int		i;
@@ -27,6 +29,7 @@ static void		zero_buff(char *buff, int start)
 		++i;
 	}
 }
+*/
 
 static void		end_connection(t_env *env, int cs)
 {
@@ -35,20 +38,6 @@ static void		end_connection(t_env *env, int cs)
 	free(env->fds[cs].nick);
 	clean_fd(&env->fds[cs]);
 }
-
-/*
-static void		add_input(t_env *env, char *cmd_ret, int i)
-{
-	char	*buff;
-
-	buff = env->fds[i].buf_write;
-	env->fds[i].buf_write = ft_strjoin(buff, "\n");
-	free(buff);
-	buff = env->fds[i].buf_write;
-	env->fds[i].buf_write = ft_strjoin(buff, cmd_ret);
-	free(buff);
-}
-*/
 
 void			client_read(t_env *env, int cs)
 {
@@ -69,17 +58,20 @@ void			client_read(t_env *env, int cs)
 	else
 	{
 		i = 0;
-		zero_buff(buff, ret); // Pas sur que ce soit utile a present
+//		zero_buff(buff, ret); // Pas sur que ce soit utile a present
 		ringbuff_write(env->fds[cs].buf_read, buff, ret);
 		ret = ringbuff_read_to_str(env->fds[cs].buf_read, &to_read, "\n\r");
 		if (ret > 0)
 		{
+			to_read[ret - 1] = '\0'; // |
+			to_read[ret - 2] = '\0'; // |-> Just getting the ending "\n\r" out of the way, i'll find a cleaner way to do so later
 			cmd_ret = get_client_input(env, cs, to_read);
-			while (i < env->max_fd && env->fds[cs].chan != 0)
+			ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
+			while (i < env->max_fd && env->fds[cs].chan != 0
+					&& cmd_ret != NULL && ft_strlen(cmd_ret) > 0)
 			{
 				if (env->fds[i].type == FD_CLIENT && i != cs &&
-						env->fds[i].chan == env->fds[cs].chan
-						&& cmd_ret != NULL)
+						env->fds[i].chan == env->fds[cs].chan)
 				{
 					ringbuff_write(env->fds[i].buf_write, cmd_ret, ft_strlen(cmd_ret));
 					ringbuff_write(env->fds[i].buf_write, "\n\r", 2);

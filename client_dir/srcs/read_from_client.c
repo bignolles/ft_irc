@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 19:59:10 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/04 17:02:21 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <ft_error.h>
 #include <client.h>
 
-static int	is_exit(char *input)
+static int		is_exit(char *input)
 {
 	char	*trim;
 
@@ -34,7 +34,7 @@ static int	is_exit(char *input)
 	}
 }
 
-void		read_from_client(t_env *env)
+void			read_from_client(t_env *env)
 {
 	char	buffer[RINGBUFF_CHUNK_SIZE + 1];
 	int		ret;
@@ -50,6 +50,6 @@ void		read_from_client(t_env *env)
 		}
 		ringbuff_write(env->buf_write, buffer, ret);
 		if (ft_strchr(buffer, '\n') == buffer + ft_strlen(buffer) - 1)
-			ringbuff_write(env->buf_write, "\n\r", 2);
+			ringbuff_write(env->buf_write, "\r", 2);
 	}
 }
