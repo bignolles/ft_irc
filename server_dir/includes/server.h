@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 17:43:47 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/07 19:06:32 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <netinet/in.h>
 # include "ringbuff.h"
 
-# define FD_FREE				0
-# define FD_SERV				1
-# define FD_CLIENT				2
 # define SERV_ERROR				-1
 # define SERV_OK				0
 # define SERV_USAGE				": <port>"
@@ -36,17 +33,25 @@
 # define USER_NO_EXIST			1
 # define USER_NOT_CONNECTED		2
 
+typedef enum				e_fdtype
+{
+	FD_FREE = 0,
+	FD_SERV,
+	FD_CLIENT_WAITING,
+	FD_CLIENT,
+}							t_fdtype;
+
 typedef struct				s_fd
 {
-	int				type;
+	t_fdtype		type;
+	char			ping[6];
+	int				wait_step;
 	int				chan;
 	void			(*fct_read)();
 	void			(*fct_write)();
 	char			*nick;
 	t_ringbuff		*buf_read;
 	t_ringbuff		*buf_write;
-//	char			buf_read[BUF_SIZE + 1];
-//	char			*buf_write;
 }							t_fd;
 
 typedef struct				s_channel
@@ -95,6 +100,8 @@ void						init_fd(t_env *env);
 void						check_fd(t_env *env);
 void						client_read(t_env *env, int cs);
 void						client_write(t_env *env, int cs);
+void						wait_read(t_env *env, int cs);
+void						wait_write(t_env *env, int cs);
 void						srv_accept(t_env *env, int s);
 char						*get_client_input(t_env *env, int cs, char *input);
 t_channel					*create_channel(int id, char *name);
@@ -102,6 +109,7 @@ int							add_channel(t_env *env, t_channel *new);
 char						*get_chan_by_id(t_channel *chan, int id);
 char						*get_chan_by_user(t_env *env, char *user, int *c);
 int							get_channels_nb(t_channel *chan);
+void						end_connection(t_env *env, int cs);
 
 /*
 ** command handlers

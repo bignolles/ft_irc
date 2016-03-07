@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 17:12:58 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 17:16:09 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/07 19:00:58 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ static void		zero_buff(char *buff, int start)
 	}
 }
 */
-
-static void		end_connection(t_env *env, int cs)
-{
-	disp_client_away(env, cs);
-	close(cs);
-	free(env->fds[cs].nick);
-	clean_fd(&env->fds[cs]);
-}
 
 void			client_read(t_env *env, int cs)
 {
@@ -66,7 +58,7 @@ void			client_read(t_env *env, int cs)
 			to_read[ret - 1] = '\0'; // |
 			to_read[ret - 2] = '\0'; // |-> Just getting the ending "\n\r" out of the way, i'll find a cleaner way to do so later
 			cmd_ret = get_client_input(env, cs, to_read);
-			ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
+	//		ringbuff_write(env->fds[cs].buf_write, "\n\r", 2); 
 			while (i < env->max_fd && env->fds[cs].chan != 0
 					&& cmd_ret != NULL && ft_strlen(cmd_ret) > 0)
 			{

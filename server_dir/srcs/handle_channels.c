@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 19:45:30 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/05 17:56:33 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char				*handle_channels(t_env *env, int cs, char *input)
 		free(chans[i].name);
 		++i;
 	}
+	ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
 	free(chans);
 	return (NULL);
 }

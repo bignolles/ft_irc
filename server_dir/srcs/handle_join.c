@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 11:24:25 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/05 18:07:18 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static char		*join_msg(t_env *env, int cs, int new_chan, char *chan)
 
 	ringbuff_write(env->fds[cs].buf_write, "You joined ", RINGBUFF_CHUNK_SIZE);
 	ringbuff_write(env->fds[cs].buf_write, chan, ft_strlen(chan));
+	ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
 	ret = ft_strdup(env->fds[cs].nick);
 	tmp = ret;
 	ret = ft_strjoin(tmp, " has joined ");
@@ -91,7 +92,6 @@ char			*handle_join(t_env *env, int cs, char *input)
 	char		*chan_name;
 	char		*ret;
 
-	ft_putendl("handle_join");
 	tmp = env->chans;
 	if ((chan_name = get_chan_name(env, cs, input)) == NULL)
 		return (NULL);

@@ -6,16 +6,19 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 12:38:55 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 17:43:23 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/07 14:08:07 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 #include "server.h"
 
 void	clean_fd(t_fd *fd)
 {
 	fd->type = FD_FREE;
+	fd->wait_step = 0;
+	ft_bzero(fd->ping, 6);
 	fd->chan = DEFAULT_CHAN;
 	fd->fct_read = NULL;
 	fd->fct_write = NULL;

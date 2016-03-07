@@ -6,11 +6,12 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:21:12 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 15:06:44 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/07 14:08:51 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <server.h>
+#include <time.h>
 #include <stdlib.h>
 
 t_cmd		g_cmd_table[CMD_NB] = {
@@ -30,6 +31,7 @@ int			main(int argc, char **argv)
 {
 	t_env	env;
 
+	srand(time(NULL));
 	init_env(&env);
 	get_opt(&env, argc, argv);
 	srv_create(&env);

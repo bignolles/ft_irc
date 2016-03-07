@@ -21,7 +21,8 @@ CLI_SRCS =			main.c					create_client.c\
 					init_env.c				read_from_serv.c\
 					check_fd.c				run_client.c\
 					get_opt.c				usage.c\
-					wait_for_connect.c		env_delete.c
+					wait_for_connect.c		env_delete.c\
+					read_from_serv_check.c	wait_read.c
 SERV_SRCS =			main.c					clean_fd.c\
 					disp.c					get_opt.c\
 					init_env.c				run_srv.c\
@@ -32,7 +33,9 @@ SERV_SRCS =			main.c					clean_fd.c\
 					channels.c				handle_join.c\
 					handle_who.c			handle_msg.c\
 					handle_channels.c		handle_help.c\
-					handle_find.c			handle_where.c
+					handle_find.c			handle_where.c\
+					wait_write.c			wait_read.c\
+					end_connection.c
 CLI_OBJ =			$(CLI_SRCS:.c=.o)
 SERV_OBJ =			$(SERV_SRCS:.c=.o)
 

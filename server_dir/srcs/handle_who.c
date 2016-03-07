@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:37:58 by marene            #+#    #+#             */
-/*   Updated: 2016/03/03 14:33:04 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/05 18:24:16 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ char			*handle_who(t_env *env, int cs, char *input)
 		++i;
 	}
 	ringbuff_write(env->fds[cs].buf_write, buf_who, ft_strlen(buf_who));
+	ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
 	return (NULL);
 }

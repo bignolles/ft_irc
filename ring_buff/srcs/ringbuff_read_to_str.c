@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 19:47:12 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 13:03:56 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/07 10:36:26 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					ringbuff_read_to_str(t_ringbuff *buff, char **tmp, char *str)
 			if (!str[j])
 			{
 				*tmp = malloc(sizeof(char) * (i + j + 1));
-				(*tmp)[i] = '\0';
+				(*tmp)[i + j] = '\0';
 				if (*tmp == NULL)
 					return (-1);
 				return (ringbuff_read(buff, *tmp, i + j));

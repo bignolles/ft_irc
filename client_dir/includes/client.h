@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 16:01:32 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/07 19:26:40 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
 
-typedef struct				s_fd
-{
-	int			type;
-	void		(*fct_read)();
-	void		(*fct_write)();
-	char		*buf_read;
-	char		*buf_write;
-}							t_fd;
-
 typedef struct				s_env
 {
 	int					port;
@@ -52,8 +43,9 @@ typedef struct				s_env
 	fd_set				fd_write;
 	t_ringbuff			*buf_write;
 	t_ringbuff			*buf_read;
-//	char				*buf_read;
-//	char				*buf_write;
+	void				(*fct_read)(struct s_env*);
+	void				(*fct_write)(struct s_env*);
+	void				(*fct_input)(struct s_env*);
 }							t_env;
 
 typedef struct sockaddr		t_sockaddr;
@@ -64,11 +56,13 @@ void						init_fd(t_env *env);
 void						create_client(t_env *env);
 void						read_from_client(t_env *env);
 void						read_from_serv(t_env *env);
+void						wait_read(t_env *env);
 void						write_to_serv(t_env *env);
 void						init_env(t_env *env);
 void						env_delete(t_env *env);
 void						run_client(t_env *env);
 void						check_fd(t_env *env);
 void						wait_for_connect(t_env *env);
+void						read_from_serv_check(t_env *env);
 
 #endif
