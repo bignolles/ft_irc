@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 18:31:36 by marene            #+#    #+#             */
-/*   Updated: 2016/03/07 10:33:54 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 15:07:14 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		read_from_serv_check(t_env *env)
 		if (ft_strlen(to_print) > 2) // if there is something else than a mere "\n\r" to print. Find a cleaner way to achieve it server side by
 			// avoiding sending bare "\n\r" packets of data
 		{
+			ft_putchar('\n');
+			ft_putstr(UP_AND_ERASE);
 			write(1, to_print, ret - 2);
 			ft_putchar('\n');
 		}

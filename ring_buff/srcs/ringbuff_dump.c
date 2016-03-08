@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 11:02:20 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 16:43:18 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 13:45:07 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void				ringbuff_dump(t_ringbuff *buff)
 		write(1, RINGBUFF_DEFAULT, 6);
 		++i;
 	}
+	write(1, "\n", 1);
 }

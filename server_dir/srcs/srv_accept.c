@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 11:03:10 by marene            #+#    #+#             */
-/*   Updated: 2016/03/07 19:03:38 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 12:05:31 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,6 @@
 
 /*
 ** int s param is the server's socket
-*/
-
-/*
-static void		welcome_msg(t_env *env, int cs)
-{
-	ringbuff_write(env->fds[cs].buf_write,
-			"\nWelcome to marene's IRC!\n\nHere's a list of all the channels:",
-			RINGBUFF_CHUNK_SIZE);
-	handle_channels(env, cs, NULL);
-	ringbuff_write(env->fds[cs].buf_write,
-		"\n\nAnd a list of all the commands you can use:",
-		RINGBUFF_CHUNK_SIZE);
-	handle_help(env, cs, NULL);
-	ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
-}
 */
 
 static void		setup_ping(t_env *env, int cs)
