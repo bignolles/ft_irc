@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2016/03/07 19:26:40 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 15:05:16 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define IRC_END		"\n\r"
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
+# define UP_AND_ERASE	"\e[A\e[2K"
 
 typedef struct				s_env
 {

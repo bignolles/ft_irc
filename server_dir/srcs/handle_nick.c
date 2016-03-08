@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:51:56 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 11:25:15 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 17:04:33 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char			*handle_nick(t_env *env, int cs, char *input)
 		free(nick);
 	}
 	free(input);
-	ringbuff_write(env->fds[cs].buf_write, "invalid nickname", RINGBUFF_CHUNK_SIZE);
+	ringbuff_write(env->fds[cs].buf_write, "invalid nickname",
+			RINGBUFF_CHUNK_SIZE);
 	return (NULL);
 }

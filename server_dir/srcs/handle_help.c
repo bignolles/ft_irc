@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 18:38:50 by marene            #+#    #+#             */
-/*   Updated: 2016/03/05 18:00:03 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 17:03:40 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ char			*handle_help(t_env *env, int cs, char *input)
 	while (i < CMD_NB)
 	{
 		ringbuff_write(env->fds[cs].buf_write, "\n", 1);
-		ringbuff_write(env->fds[cs].buf_write, g_cmd_table[i].cmd, ft_strlen(g_cmd_table[i].cmd));
-		ringbuff_write(env->fds[cs].buf_write, g_cmd_table[i].desc, ft_strlen(g_cmd_table[i].desc));
+		ringbuff_write(env->fds[cs].buf_write, g_cmd_table[i].cmd,
+				ft_strlen(g_cmd_table[i].cmd));
+		ringbuff_write(env->fds[cs].buf_write, g_cmd_table[i].desc,
+				ft_strlen(g_cmd_table[i].desc));
 		++i;
 	}
 	ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);

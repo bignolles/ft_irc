@@ -6,11 +6,9 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 17:02:21 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 16:58:42 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-# include <stdio.h>
 
 #include <unistd.h>
 #include <libft.h>

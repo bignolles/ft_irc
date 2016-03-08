@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/05 17:56:33 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 17:04:19 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ char				*handle_channels(t_env *env, int cs, char *input)
 	chans = get_channels_recap(env, cs, &chans_nb);
 	if (chans_nb == 0)
 	{
-		ringbuff_write(env->fds[cs].buf_write, "No channels (yet)", RINGBUFF_CHUNK_SIZE);
+		ringbuff_write(env->fds[cs].buf_write, "No channels (yet)",
+				RINGBUFF_CHUNK_SIZE);
 	}
 	while (i < chans_nb)
 	{

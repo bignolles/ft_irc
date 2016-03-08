@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2016/03/05 18:07:18 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 17:04:58 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static char		*get_chan_name(t_env *env, int cs, char *input)
 	if (ft_strlen(input) <= join_len)
 	{
 		free(input);
-		ringbuff_write(env->fds[cs].buf_write, "Invalid chan name", RINGBUFF_CHUNK_SIZE);
+		ringbuff_write(env->fds[cs].buf_write, "Invalid chan name",
+				RINGBUFF_CHUNK_SIZE);
 		return (NULL);
 	}
 	ret = ft_strdup(input + join_len);
@@ -59,7 +60,7 @@ static void		leave_chan(t_env *env, int cs, int new_chan)
 		while (i < env->max_fd)
 		{
 			if (i != cs && env->fds[i].chan == env->fds[cs].chan)
-				ringbuff_write(env->fds[i].buf_write, msg, ft_strlen(msg)); //  quelque part nan?
+				ringbuff_write(env->fds[i].buf_write, msg, ft_strlen(msg));
 			++i;
 		}
 		free(msg);

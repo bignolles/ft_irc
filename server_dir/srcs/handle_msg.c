@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 12:07:06 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 17:36:10 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 17:52:53 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void		send_a_message(t_env *env, int c_nb, char *msg)
 static void		unresolved_dest(t_env *env, char *dest, int cs)
 {
 	ringbuff_write(env->fds[cs].buf_write, dest, ft_strlen(dest));
-	ringbuff_write(env->fds[cs].buf_write, " does not exist, or is not connected", RINGBUFF_CHUNK_SIZE);// Peut etre \n\r nan?
+	ringbuff_write(env->fds[cs].buf_write,
+			" does not exist, or is not connected", RINGBUFF_CHUNK_SIZE);
 }
 
 static void		add_sender(t_ringbuff *buff, char *sender)
 {
-
 	ringbuff_write(buff, PRIVATE_OPEN, ft_strlen(PRIVATE_OPEN));
 	ringbuff_write(buff, sender, ft_strlen(sender));
 	ringbuff_write(buff, PRIVATE_CLOSE, ft_strlen(PRIVATE_CLOSE));

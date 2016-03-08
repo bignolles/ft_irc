@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/30 11:03:10 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 12:05:31 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 17:05:50 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ void			srv_accept(t_env *env, int s)
 	setup_ping(env, c_sock);
 	ringbuff_write(env->fds[c_sock].buf_write, env->fds[c_sock].ping, 5);
 	ringbuff_write(env->fds[c_sock].buf_write, "\n\r", 2);
-//	welcome_msg(env, c_sock);
 	free(buff);
 }

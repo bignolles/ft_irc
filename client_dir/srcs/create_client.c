@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/21 11:26:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/07 19:25:04 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/08 16:57:37 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	create_client(t_env *env)
 	cin.sin_addr.s_addr = env->s_addr;
 	tryint(-1, connect(env->s_sock, (const struct sockaddr *)&cin, sizeof(cin)),
 			"connect");
-	env->fct_read = wait_read; //      |
-	env->fct_write = write_to_serv; // |-> Change that when ping exange system will be in place
+	env->fct_read = wait_read;
+	env->fct_write = write_to_serv;
 	env->fct_input = NULL;
 }
