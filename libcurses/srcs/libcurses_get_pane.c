@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libcurses_add_in_pane.c                            :+:      :+:    :+:   */
+/*   libcurses_get_pane.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/11 15:24:46 by marene            #+#    #+#             */
-/*   Updated: 2016/03/11 17:09:52 by marene           ###   ########.fr       */
+/*   Created: 2016/03/14 16:44:59 by marene            #+#    #+#             */
+/*   Updated: 2016/03/14 16:56:53 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 #include "libcurses.h"
 
-t_pane		*libcurses_add_in_pane(t_screen *screen, char *pane_name, unsigned int flags, int *pos, int *dimension)
+t_pane		*libcurses_get_pane_by_name(t_screen *screen, char *name)
 {
-	t_pane		*new_pane;
+	t_panelist	*it;
 
-	new_pane = NULL;
-	if (!(flags & PANE_OUTPUT))
+	it = screen->panes;
+	while (it != NULL)
 	{
-		new_pane = create_pane(pane_name, flags, dimension, padding);
-		if (new_pane != NULL)
-		{
-		}
+		if (it->pane && ft_strequ(it->pane->name, name))
+			return (it->pane);
+		it = it->next;
 	}
-	return (new_pane);
+	return (NULL);
+}
+
+t_pane		*libcurses_get_pane_by_id(t_screen *screen, int id)
+{
+	t_panelist	*it;
+
+	it = screen->panes;
+	while (it != NULL)
+	{
+		if (it->pane && it->pane->id == id)
+			return (it->pane);
+		it = it->next;
+	}
+	return (NULL);
 }

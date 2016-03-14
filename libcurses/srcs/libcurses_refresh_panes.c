@@ -1,45 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libcurses_init.c                                   :+:      :+:    :+:   */
+/*   libcurses_refresh_panes.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/11 14:11:09 by marene            #+#    #+#             */
-/*   Updated: 2016/03/14 16:57:54 by marene           ###   ########.fr       */
+/*   Created: 2016/03/14 12:08:30 by marene            #+#    #+#             */
+/*   Updated: 2016/03/14 16:58:00 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-	# include <stdio.h>
-
-#include <stdlib.h>
 #include "libft.h"
 #include "libcurses.h"
 
-t_screen		*libcurses_init(void)
+void		libcurses_refresh_panes(t_screen *screen)
 {
-	t_screen		*ret;
-	static char		init = 0;
+	t_panelist	*it;
 
-	ret = malloc(sizeof(t_screen));
-	if (ret != NULL)
+	it = screen->panes;
+	while (it != NULL)
 	{
-		if (!init)
-		{
-			initscr();
-			init = 1;
-		}
-		ret->panes = malloc(sizeof(t_panelist));
-		if (ret->panes == NULL)
-		{
-			free(ret);
-			ret = NULL;
-		}
-		else
-		{
-			ret->panes->next = NULL;
-			ret->panes->pane = NULL;
-		}
+		if (it->pane)
+			wrefresh(it->pane->win);
+		it = it->next;
 	}
-	return (ret);
 }

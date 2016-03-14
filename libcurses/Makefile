@@ -8,9 +8,15 @@ LIBFT_NAME =			ft
 SRCS_DIR =				./srcs/
 INCLUDES_DIR =			./includes/
 OBJ_DIR =				./obj/
-SRCS =					libcurses_init.c
+SRCS =					libcurses_add_pane.c\
+						libcurses_create_pane.c\
+						libcurses_destruct_pane.c\
+						libcurses_get_pane.c\
+						libcurses_init.c\
+						libcurses_refresh_panes.c\
+						libcurses_set_pos.c
 OBJ =					$(SRCS:.c=.o)
-CFLAGS =				-Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_INCLUDES_DIR) -c -o
+CFLAGS =				-Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_INCLUDES_DIR) -g -c -o
 LDFLAGS =				-q
 
 all: $(OBJ_DIR) $(LIBFT) $(NAME)

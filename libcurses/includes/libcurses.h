@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:40:35 by marene            #+#    #+#             */
-/*   Updated: 2016/03/11 17:16:31 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/14 16:55:03 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define PANE_BOXED		1
 # define PANE_INPUT		2
 # define PANE_OUTPUT	4
+# define PANE_IO		(PANE_INPUT | PANE_OUTPUT)
 
 typedef struct			s_pane
 {
@@ -45,14 +46,24 @@ typedef struct			s_pane
 	WINDOW			*win;
 }						t_pane;
 
+typedef struct			s_panelist
+{
+	t_pane					*pane;
+	struct s_panelist		*next;
+}						t_panelist;
+
 typedef struct			s_screen
 {
-	t_pane			*in_pane;
-	t_pane			*out_pane;
+	t_panelist		*panes;
 }						t_screen;
 
 t_screen				*libcurses_init(void);
-t_pane					*libcurses_add_in_pane(t_screen *screen, char *pane_name, unsigned int flags, int *dimension, int *padding);
+t_pane					*libcurses_add_pane(t_screen *screen, char *pane_name, unsigned int flags, int *dimension, int *padding);
 t_pane					*libcurses_create_pane(char *pane_name, unsigned int flags, int *pos, int *dimension);
+t_pane					*libcurses_get_pan_by_name(t_screen *screen, char *name);
+t_pane					*libcurses_get_pan_by_id(t_screen *screen, int id);
+void					libcurses_destruct_pane(t_pane **pane);
+void					libcurses_refresh_panes(t_screen *screen);
+void					libcurses_set_pos(int *pos, int lines, int cols);
 
 #endif
