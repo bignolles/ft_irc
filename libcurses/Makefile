@@ -8,7 +8,8 @@ LIBFT_NAME =			ft
 SRCS_DIR =				./srcs/
 INCLUDES_DIR =			./includes/
 OBJ_DIR =				./obj/
-SRCS =					libcurses_add_pane.c\
+SRCS =					libcurses_add_input.c\
+						libcurses_add_pane.c\
 						libcurses_create_pane.c\
 						libcurses_destruct_pane.c\
 						libcurses_get_pane.c\

@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 17:06:37 by marene            #+#    #+#             */
-/*   Updated: 2016/03/14 15:11:24 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/15 16:34:40 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,27 @@ t_pane					*libcurses_create_pane(char *pane_name, unsigned int flags, int *pos,
 		ret->pos[1] = (pos[1] * COLS) / 100;
 		ret->dimension[0] = (dimension[0] * LINES) / 100;
 		ret->dimension[1] = (dimension[1] * COLS) / 100;
-		ret->win = win;
 		ret->flags = flags;
+		ret->win = win;
+		ret->input_id = -1;
+		ret->max_input_id = 0;
 		if ((flags & PANE_BOXED))
+		{
 			box(ret->win, ACS_VLINE, ACS_HLINE);
+			ret->padding[LEFT] = 1;
+			ret->padding[RIGHT] = 1;
+			ret->padding[TOP] = 1;
+			ret->padding[BOTTOM] = 1;
+		}
+		else
+		{
+			ret->padding[LEFT] = 0;
+			ret->padding[RIGHT] = 0;
+			ret->padding[TOP] = 0;
+			ret->padding[BOTTOM] = 0;
+		}
 	}
+	else
+		ft_putendl("wtf??");
 	return (ret);
 }
