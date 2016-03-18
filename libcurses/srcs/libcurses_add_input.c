@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:38:23 by marene            #+#    #+#             */
-/*   Updated: 2016/03/15 13:34:36 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/18 12:44:13 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_input		*create_input(char *input, int id)
 	char		*cpy;
 
 	ret = malloc(sizeof(t_input));
-	cpy = ft_strdup(input);
+	cpy = ft_strtrim(input);
 	if (ret != NULL && cpy != NULL)
 	{
 		ret->id = id;

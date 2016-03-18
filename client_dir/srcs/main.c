@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 15:07:38 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/16 12:51:20 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		main(int argc, char **argv)
 {
 	t_env		env;
 
+	env.screen = NULL;
 	init_env(&env);
 	if (argc == 1)
 	{

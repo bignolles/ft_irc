@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_from_serv_check.c                             :+:      :+:    :+:   */
+/*   read_from_serv_output.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 18:31:36 by marene            #+#    #+#             */
-/*   Updated: 2016/03/18 12:40:58 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/10 13:45:00 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include "client.h"
 
-void		read_from_serv_check(t_env *env)
+void		read_from_serv_output(t_env *env)
 {
 	int		ret;
 	char	*to_print;
@@ -25,13 +25,11 @@ void		read_from_serv_check(t_env *env)
 	{
 		if (ft_strlen(to_print) > 2)
 		{
-			to_print[ret - 2] = '\0';
-			to_print[ret - 1] = '\0';
-		//	ft_putchar('\n');
-		//	write(1, to_print, ret - 2);
-			libcurses_add_input_by_name(env->screen, to_print, BOX_CHAT);
+			ft_putchar('\n');
+			ft_putstr(UP_AND_ERASE);
+			write(1, to_print, ret - 2);
+			ft_putchar('\n');
 		}
 		to_print = NULL;
 	}
-	libcurses_refresh_panes(env->screen);
 }

@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 16:11:56 by marene            #+#    #+#             */
-/*   Updated: 2016/02/29 16:20:30 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/18 14:36:02 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,9 @@ void	init_env(t_env *env)
 	FD_ZERO(&env->fd_write);
 	env->buf_write = ringbuff_construct();
 	env->buf_read = ringbuff_construct();
+	if (env->screen != NULL)
+		libcurses_destruct_screen(&env->screen);
+	else
+		env->screen = NULL;
+	ft_bzero(env->user_input, RINGBUFF_BUFF_SIZE + 1);
 }

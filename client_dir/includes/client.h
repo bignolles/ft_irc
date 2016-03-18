@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 15:05:16 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/18 14:33:27 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <netinet/in.h>
 # include <sys/socket.h>
 # include "ringbuff.h"
+# include "libcurses.h"
 
 # define CLI_OK			1
 # define CLI_FAIL		0
@@ -29,8 +30,12 @@
 # define FD_SERV		1
 # define FD_IO			2
 # define CONNECT_CMD	"/connect"
-# define PROMPT			"?>"
+# define PROMPT			"\n?>"
 # define IRC_END		"\n\r"
+
+# define BOX_CHAN_NAME	"top"
+# define BOX_CHAT		"middle"
+# define BOX_INPUT		"bottom"
 
 # define BOLD(s) ("\033[1m" s "\033[0m")
 # define UP_AND_ERASE	"\e[A\e[2K"
@@ -47,6 +52,10 @@ typedef struct				s_env
 	void				(*fct_read)(struct s_env*);
 	void				(*fct_write)(struct s_env*);
 	void				(*fct_input)(struct s_env*);
+	void				(*fct_output)(struct s_env*);
+	char				user_input[RINGBUFF_BUFF_SIZE + 1];
+	int					cursor;
+	t_screen			*screen;
 }							t_env;
 
 typedef struct sockaddr		t_sockaddr;
@@ -65,5 +74,6 @@ void						run_client(t_env *env);
 void						check_fd(t_env *env);
 void						wait_for_connect(t_env *env);
 void						read_from_serv_check(t_env *env);
+void						setup_curses(t_env *env);
 
 #endif

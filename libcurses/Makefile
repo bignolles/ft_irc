@@ -12,6 +12,7 @@ SRCS =					libcurses_add_input.c\
 						libcurses_add_pane.c\
 						libcurses_create_pane.c\
 						libcurses_destruct_pane.c\
+						libcurses_destruct_screen.c\
 						libcurses_get_pane.c\
 						libcurses_init.c\
 						libcurses_refresh_panes.c\

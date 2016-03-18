@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:40:35 by marene            #+#    #+#             */
-/*   Updated: 2016/03/15 17:16:53 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/16 12:53:50 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void					libcurses_refresh_panes(t_screen *screen);
 void					libcurses_set_pos(int *pos, int lines, int cols);
 int						libcurses_add_input_by_name(t_screen *screen, char *input, char *name);
 int						libcurses_add_input_by_id(t_screen *screen, char *input, int id);
+void					libcurses_destruct_screen(t_screen **screen);
 
 #endif

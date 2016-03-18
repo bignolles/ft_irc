@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/21 11:26:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 16:57:37 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/17 13:02:51 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	create_client(t_env *env)
 	env->fct_read = wait_read;
 	env->fct_write = write_to_serv;
 	env->fct_input = NULL;
+	env->fct_output = read_from_serv_check;
 }
