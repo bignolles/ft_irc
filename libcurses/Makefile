@@ -15,6 +15,7 @@ SRCS =					libcurses_add_input.c\
 						libcurses_destruct_screen.c\
 						libcurses_get_pane.c\
 						libcurses_init.c\
+						libcurses_input_char.c\
 						libcurses_refresh_panes.c\
 						libcurses_set_pos.c
 OBJ =					$(SRCS:.c=.o)

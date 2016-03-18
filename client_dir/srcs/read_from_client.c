@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/03/10 16:42:59 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/18 17:53:15 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			read_from_client(t_env *env)
 	char	buffer[RINGBUFF_CHUNK_SIZE + 1];
 	int		ret;
 
-	ft_putstr("read_from_client");
+
 	ret = tryint(-1, read(0, buffer, RINGBUFF_CHUNK_SIZE), "read");
 	if (ret > 0)
 	{

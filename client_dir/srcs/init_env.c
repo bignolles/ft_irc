@@ -6,14 +6,15 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 16:11:56 by marene            #+#    #+#             */
-/*   Updated: 2016/03/18 14:36:02 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/18 16:08:58 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <sys/resource.h>
-#include <client.h>
-#include <ft_error.h>
+#include "client.h"
+#include "libft.h"
+#include "ft_error.h"
 
 void	init_env(t_env *env)
 {

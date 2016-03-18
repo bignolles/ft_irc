@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:40:35 by marene            #+#    #+#             */
-/*   Updated: 2016/03/16 12:53:50 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/18 18:23:03 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ t_pane					*libcurses_add_pane(t_screen *screen, char *pane_name, unsigned int f
 t_pane					*libcurses_create_pane(char *pane_name, unsigned int flags, int *pos, int *dimension);
 t_pane					*libcurses_get_pane_by_name(t_screen *screen, char *name);
 t_pane					*libcurses_get_pane_by_id(t_screen *screen, int id);
+t_pane					*libcurses_get_pane_by_flags(t_screen *screen, int id);
 void					libcurses_destruct_pane(t_pane **pane);
 void					libcurses_refresh_panes(t_screen *screen);
 void					libcurses_set_pos(int *pos, int lines, int cols);
+void					libcurses_destruct_screen(t_screen **screen);
 int						libcurses_add_input_by_name(t_screen *screen, char *input, char *name);
 int						libcurses_add_input_by_id(t_screen *screen, char *input, int id);
-void					libcurses_destruct_screen(t_screen **screen);
+char					libcurses_input_char(t_screen *screen);
 
 #endif
