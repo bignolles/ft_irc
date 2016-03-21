@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/01 14:19:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 17:04:19 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 18:24:16 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ static int			get_co_nb(t_env *env, int chan_id)
 	return (ret);
 }
 
-static void			color_name(char **name)
+static void			notice_name(char **name)
 {
 	char	*tmp;
 
 	tmp = *name;
-	*name = ft_strjoin(GREEN, tmp);
-	free(tmp);
-	tmp = *name;
-	*name = ft_strjoin(tmp, DEFAULT_COLOR);
+	*name = ft_strjoin(tmp, " <-");
 	free(tmp);
 }
 
@@ -60,7 +57,7 @@ static t_chan_list	*get_channels_recap(t_env *env, int cs, int *chan_nb)
 			ret[i].name = ft_strdup(chan->name);
 			ret[i].co_nb = get_co_nb(env, chan->id);
 			if (env->fds[cs].chan == chan->id)
-				color_name(&ret[i].name);
+				notice_name(&ret[i].name);
 			++i;
 		}
 		chan = chan->next;

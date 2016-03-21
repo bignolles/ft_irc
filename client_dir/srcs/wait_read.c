@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 19:16:39 by marene            #+#    #+#             */
-/*   Updated: 2016/03/16 14:32:21 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 17:20:00 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void		wait_read(t_env *env)
 		{
 			if (ft_strequ(to_read, "OK\n\r"))
 			{
-				env->fct_read = read_from_serv;
-				env->fct_input = read_from_client;
 				setup_curses(env);
 				read_from_serv_check(env);
+				env->fct_read = read_from_serv;
+				env->fct_input = read_from_client;
 			}
 			else
 			{

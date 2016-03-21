@@ -11,6 +11,7 @@ SRCS =				ringbuff_destruct.c\
 					ringbuff_get_space.c\
 					ringbuff_has_space.c\
 					ringbuff_init.c\
+					ringbuff_pop.c\
 					ringbuff_read.c\
 					ringbuff_read_cpy.c\
 					ringbuff_read_to_str.c\

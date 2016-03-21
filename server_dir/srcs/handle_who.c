@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:37:58 by marene            #+#    #+#             */
-/*   Updated: 2016/03/05 18:24:16 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 18:16:42 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char			*handle_who(t_env *env, int cs, char *input)
 	free(input);
 	while (i < env->max_fd)
 	{
-		nick = (i == cs) ? GREEN"yourself"DEFAULT_COLOR : env->fds[i].nick;
+		nick = (i == cs) ? "yourself" : env->fds[i].nick;
 		if (env->fds[i].chan != DEFAULT_CHAN
 				&& env->fds[i].chan == env->fds[cs].chan)
 			buf_who = add_nick(buf_who, nick);

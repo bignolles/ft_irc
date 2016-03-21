@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 17:03:59 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 17:30:18 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char		*handle_cmd(t_env *env, int cs, char *input)
 		}
 		++i;
 	}
-	ringbuff_write(env->fds[cs].buf_write, "Command not found.",
+	ringbuff_write(env->fds[cs].buf_write, "Command not found.\n\r",
 			RINGBUFF_CHUNK_SIZE);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:51:56 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 17:04:33 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 17:48:11 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char		*nick_msg(t_env *env, int cs, char *new_nick)
 	free(ret);
 	ret = ft_strjoin(buff, new_nick);
 	free(buff);
-	free(new_nick);
 	return (ret);
 }
 
@@ -64,6 +63,7 @@ static int		is_valid(t_env *env, int cs, char *nick)
 char			*handle_nick(t_env *env, int cs, char *input)
 {
 	char		*nick;
+	char		*nick_m;
 	size_t		nick_len;
 
 	nick_len = ft_strlen("/NICK ");
@@ -73,11 +73,16 @@ char			*handle_nick(t_env *env, int cs, char *input)
 		free(input);
 		input = NULL;
 		if (is_valid(env, cs, nick))
-			return (nick_msg(env, cs, nick));
-		free(nick);
+		{
+			nick_m = nick_msg(env, cs, nick);
+			ringbuff_write(env->fds[cs].buf_write, nick_m, ft_strlen(nick_m));
+			ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
+			free(nick);
+			return (nick_m);
+		}
 	}
 	free(input);
-	ringbuff_write(env->fds[cs].buf_write, "invalid nickname",
+	ringbuff_write(env->fds[cs].buf_write, "invalid nickname\n\r",
 			RINGBUFF_CHUNK_SIZE);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 12:08:30 by marene            #+#    #+#             */
-/*   Updated: 2016/03/18 14:20:03 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 16:40:36 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,12 @@ void		libcurses_refresh_panes(t_screen *screen)
 	{
 		if (it->pane)
 		{
-			werase(it->pane->win);
-			if ((it->pane->flags & PANE_BOXED))
-				box(it->pane->win, ACS_VLINE, ACS_HLINE);
+			if (!(it->pane->flags & PANE_INPUT))
+			{
+				werase(it->pane->win);
+				if ((it->pane->flags & PANE_BOXED))
+					box(it->pane->win, ACS_VLINE, ACS_HLINE);
+			}
 			if ((it->pane->flags & PANE_OUTPUT) && it->pane->inputs)
 				libcurses_print(it->pane);
 			wrefresh(it->pane->win);

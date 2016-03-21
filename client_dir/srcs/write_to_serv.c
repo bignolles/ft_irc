@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 14:35:22 by marene            #+#    #+#             */
-/*   Updated: 2016/03/04 13:02:16 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 17:31:54 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,39 @@
 #include <ft_error.h>
 #include <client.h>
 
+static int		is_exit(char *input)
+{
+	char	*trim;
+
+	trim = ft_strtrim(input);
+	if (ft_strequ(trim, "/exit\n\r"))
+	{
+		free(trim);
+		return (1);
+	}
+	else
+	{
+		free(trim);
+		return (0);
+	}
+}
+
 void	write_to_serv(t_env *env)
 {
 	int		ret;
 	size_t	len;
-	char	buff[RINGBUFF_CHUNK_SIZE + 1];
+	char	*buff;
 
-	len = ringbuff_read_cpy(env->buf_write, buff, RINGBUFF_CHUNK_SIZE);
-	buff[len] = '\0';
-	ret = tryint(-1, send(env->s_sock, buff, len, 0), "send");
-	ringbuff_read(env->buf_write, buff, ret);
+	buff = NULL;
+	len = ringbuff_read_to_str(env->buf_write, &buff, "\n\r");
+	if (buff != NULL)
+	{
+		if (is_exit(buff))
+		{
+			env_delete(env);
+			libcurses_reinit();
+			exit(0);
+		}
+		ret = tryint(-1, send(env->s_sock, buff, len, 0), "send");
+	}
 }

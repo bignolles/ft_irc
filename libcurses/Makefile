@@ -10,6 +10,7 @@ INCLUDES_DIR =			./includes/
 OBJ_DIR =				./obj/
 SRCS =					libcurses_add_input.c\
 						libcurses_add_pane.c\
+						libcurses_check_input.c\
 						libcurses_create_pane.c\
 						libcurses_destruct_pane.c\
 						libcurses_destruct_screen.c\

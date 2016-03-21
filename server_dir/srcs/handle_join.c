@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 17:04:58 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 18:44:51 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char		*get_chan_name(t_env *env, int cs, char *input)
 	if (ft_strlen(input) <= join_len)
 	{
 		free(input);
-		ringbuff_write(env->fds[cs].buf_write, "Invalid chan name",
+		ringbuff_write(env->fds[cs].buf_write, "Invalid chan name\n\r",
 				RINGBUFF_CHUNK_SIZE);
 		return (NULL);
 	}

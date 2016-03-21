@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:24:50 by marene            #+#    #+#             */
-/*   Updated: 2016/03/02 17:33:16 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/21 16:34:33 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ int					ringbuff_get_read_space(t_ringbuff *buff);
 int					ringbuff_get_write_space(t_ringbuff *buff);
 int					ringbuff_read_to_str(t_ringbuff *buff, char **tmp, char *str);
 void				ringbuff_dump(t_ringbuff *buff);
+void				ringbuff_pop_last(t_ringbuff *buff);
+void				ringbuff_pop_first(t_ringbuff *buff);
 
 #endif
