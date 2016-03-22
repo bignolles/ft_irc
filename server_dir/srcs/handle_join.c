@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 10:38:08 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 18:44:51 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/22 14:26:43 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ static void		leave_chan(t_env *env, int cs, int new_chan)
 		while (i < env->max_fd)
 		{
 			if (i != cs && env->fds[i].chan == env->fds[cs].chan)
+			{
 				ringbuff_write(env->fds[i].buf_write, msg, ft_strlen(msg));
+				ringbuff_write(env->fds[i].buf_write, "\n\r", 2);
+			}
 			++i;
 		}
 		free(msg);

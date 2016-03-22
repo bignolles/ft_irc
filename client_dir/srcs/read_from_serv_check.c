@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 18:31:36 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 18:15:03 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/22 18:43:15 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void		read_from_serv_check(t_env *env)
 		{
 			to_print[ret - 2] = '\0';
 			to_print[ret - 1] = '\0';
-		//	ft_putchar('\n');
-		//	write(1, to_print, ret - 2);
 			libcurses_add_input_by_name(env->screen, to_print, BOX_CHAT);
 		}
 		to_print = NULL;

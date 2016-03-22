@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:40:35 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 16:51:35 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/22 17:02:53 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@
 # define TOP			2
 # define BOTTOM			3
 
-# define LIBCURSES_OK	0
-# define LIBCURSES_NOK	1
+# define LIBCURSES_OK			0
+# define LIBCURSES_NOK			1
 
-# define PANE_BOXED		1
-# define PANE_INPUT		2
-# define PANE_OUTPUT	4
-# define PANE_IO		(PANE_INPUT | PANE_OUTPUT)
+# define PANE_BOXED				1
+# define PANE_INPUT				2
+# define PANE_OUTPUT			4
+# define PANE_IO				(PANE_INPUT | PANE_OUTPUT)
+
+# define LIBCURSES_MAX_INPUT	4096
 
 typedef struct			s_input
 {
@@ -54,6 +56,8 @@ typedef struct			s_pane
 	t_input			*inputs;
 	int				input_id;
 	int				max_input_id;
+	char			input_msg[LIBCURSES_MAX_INPUT + 1];
+	int				input_msg_len;
 }						t_pane;
 
 typedef struct			s_panelist

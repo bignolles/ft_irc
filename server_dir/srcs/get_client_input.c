@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/31 16:04:38 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 17:30:18 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/22 17:58:17 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ char			*get_client_input(t_env *env, int cs, char *input)
 		free(buff);
 		buff = ret;
 		ret = ft_strjoin(buff, epur);
+		ringbuff_write(env->fds[cs].buf_write, "<You> ", 6);
+		ringbuff_write(env->fds[cs].buf_write, epur, ft_strlen(epur));
+		//ringbuff_write(env->fds[cs].buf_write, "\n\r", 2);
 		free(buff);
 		free(trim);
 		free(epur);

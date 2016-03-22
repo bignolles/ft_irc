@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 17:06:37 by marene            #+#    #+#             */
-/*   Updated: 2016/03/16 11:26:36 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/22 17:03:38 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_pane					*libcurses_create_pane(char *pane_name, unsigned int flags, int *pos,
 			ret->padding[TOP] = 0;
 			ret->padding[BOTTOM] = 0;
 		}
+		ft_bzero(ret->input_msg, LIBCURSES_MAX_INPUT + 1);
+		ret->input_msg_len = 0;
 	}
 	return (ret);
 }
