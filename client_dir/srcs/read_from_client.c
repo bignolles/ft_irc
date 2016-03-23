@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 17:07:29 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:10:23 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,4 @@ void			read_from_client(t_env *env)
 			ringbuff_write(env->buf_write, &c, 1);
 		}
 	}
-/*
-	ret = tryint(-1, read(0, buffer, RINGBUFF_CHUNK_SIZE), "read");
-	if (ret > 0)
-	{
-		buffer[ret] = '\0';
-		if (is_exit(buffer))
-		{
-			close(env->s_sock);
-			exit(0);
-		}
-		ringbuff_write(env->buf_write, buffer, ret);
-		if (ft_strchr(buffer, '\n') == buffer + ft_strlen(buffer) - 1)
-			ringbuff_write(env->buf_write, "\r", 1);
-	}
-	*/
 }

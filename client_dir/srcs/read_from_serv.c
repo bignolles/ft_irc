@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 17:30:36 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:18:41 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	read_from_serv(t_env *env)
 	ret = recv(env->s_sock, buff, RINGBUFF_CHUNK_SIZE, 0);
 	if (ret <= 0)
 	{
+		endwin();
 		ft_putendl("Disconnected from server");
+		exit(42);
 		env_delete(env);
 		init_env(env);
 		wait_for_connect(env);

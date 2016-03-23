@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 18:13:26 by marene            #+#    #+#             */
-/*   Updated: 2016/03/22 17:24:51 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:09:10 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ char		libcurses_input_char(t_screen *screen, int cols)
 			if ((input_p->flags & PANE_BOXED))
 				box(input_p->win, ACS_VLINE, ACS_HLINE);
 		}
-		else if (ch == 127 && input_p->input_msg_len > 0)
+		else if (ch == 127)
 		{
-			input_p->input_msg_len -= 1;
-			input_p->input_msg[input_p->input_msg_len] = '\0';
-			mvwdelch(input_p->win, input_p->dimension[0] / 2, input_p->padding[LEFT] + cols - 1);
+			if (input_p->input_msg_len > 0)
+			{
+				mvwdelch(input_p->win, input_p->dimension[0] / 2, input_p->padding[LEFT] + cols - 1);
+				input_p->input_msg_len -= 1;
+				input_p->input_msg[input_p->input_msg_len] = '\0';
+			}
 		}
 		else
 		{

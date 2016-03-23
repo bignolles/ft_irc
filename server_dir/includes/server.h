@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/29 11:40:49 by marene            #+#    #+#             */
-/*   Updated: 2016/03/07 19:06:32 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:49:15 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char						*get_chan_by_id(t_channel *chan, int id);
 char						*get_chan_by_user(t_env *env, char *user, int *c);
 int							get_channels_nb(t_channel *chan);
 void						end_connection(t_env *env, int cs);
+void						distribute_to_peers(t_env *env, int cs, char *cmd_ret);
 
 /*
 ** command handlers
