@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 15:26:17 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/24 18:24:50 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void			run_client(t_env *env)
 	{
 		FD_ZERO(&env->fd_read);
 		FD_ZERO(&env->fd_write);
-		FD_SET(env->s_sock, &env->fd_read);
-		if (ringbuff_get_read_space(env->buf_write) > 0)
+		if (env->s_sock > 0)
+			FD_SET(env->s_sock, &env->fd_read);
+		if (env->s_sock > 0 && ringbuff_get_read_space(env->buf_write) > 0)
 		{
 			FD_SET(env->s_sock, &env->fd_write);
 		}

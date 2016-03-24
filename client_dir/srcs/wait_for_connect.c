@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 14:01:18 by marene            #+#    #+#             */
-/*   Updated: 2015/04/28 14:29:59 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/24 17:43:39 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,39 @@ static void		free_args(char **args)
 	}
 }
 
+void			wait_for_connect(t_env *env)
+{
+	char		*buff;
+	char		*trim;
+	char		**args;
+	int			len;
+
+	read_from_client(env);
+	buff = NULL;
+	len = ringbuff_read_to_str(env->buf_write, &buff, "\n\r");
+	if (buff != NULL && ft_strlen(buff) > 0)
+	{
+		trim = ft_strtrim(buff);
+		if (ft_strstr(trim, CONNECT_CMD) == trim)
+		{
+			args = ft_strsplit(trim, ' ');
+			if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
+			{
+				libcurses_add_input_by_name(env->screen, "invalid command", BOX_CHAT);
+				free_args(args);
+			}
+			else
+			{
+				get_opt(env, args[1], args[2]);
+				free_args(args);
+				create_client(env);
+				run_client(env);
+			}
+		}
+	}
+}
+
+/*
 void			wait_for_connect(t_env *env)
 {
 	char	r_buf[BUF_SIZE + 1];
@@ -57,3 +90,4 @@ void			wait_for_connect(t_env *env)
 		free_args(args);
 	}
 }
+*/

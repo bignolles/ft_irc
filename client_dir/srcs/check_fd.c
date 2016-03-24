@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 17:15:26 by marene            #+#    #+#             */
-/*   Updated: 2016/03/17 13:25:21 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/24 18:24:35 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	check_fd(t_env *env)
 {
 	if (FD_ISSET(STDIN_FILENO, &env->fd_read) && env->fct_input != NULL)
 		env->fct_input(env);
-	else if (FD_ISSET(env->s_sock, &env->fd_read))
+	else if (env->s_sock > 0 && FD_ISSET(env->s_sock, &env->fd_read))
 		env->fct_read(env);
 	if (FD_ISSET(STDOUT_FILENO, &env->fd_write) && ringbuff_get_read_space(env->buf_read) > 0)
 		env->fct_output(env);
-	if (FD_ISSET(env->s_sock, &env->fd_write))
+	if (env->s_sock > 0 && FD_ISSET(env->s_sock, &env->fd_write))
 		env->fct_write(env);
 }
