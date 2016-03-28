@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 14:01:18 by marene            #+#    #+#             */
-/*   Updated: 2016/03/24 17:43:39 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/28 18:12:59 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			wait_for_connect(t_env *env)
 	int			len;
 
 	read_from_client(env);
+	libcurses_refresh_panes(env->screen);
 	buff = NULL;
 	len = ringbuff_read_to_str(env->buf_write, &buff, "\n\r");
 	if (buff != NULL && ft_strlen(buff) > 0)
@@ -57,6 +58,12 @@ void			wait_for_connect(t_env *env)
 				create_client(env);
 				run_client(env);
 			}
+		}
+		else if (ft_strequ(trim, EXIT_CMD))
+		{
+			env_delete(env);
+			libcurses_reinit();
+			exit(0);
 		}
 	}
 }

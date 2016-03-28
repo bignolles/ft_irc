@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2016/03/24 18:24:50 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/28 15:38:35 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 
 void			run_client(t_env *env)
 {
+	int		select_nb;
+
 	while (42)
 	{
+		select_nb = (env->s_sock > 0) ? env->s_sock + 1 : STDOUT_FILENO + 1;
 		FD_ZERO(&env->fd_read);
 		FD_ZERO(&env->fd_write);
 		if (env->s_sock > 0)
 			FD_SET(env->s_sock, &env->fd_read);
 		if (env->s_sock > 0 && ringbuff_get_read_space(env->buf_write) > 0)
-		{
 			FD_SET(env->s_sock, &env->fd_write);
-		}
 		FD_SET(STDIN_FILENO, &env->fd_read);
 		FD_SET(STDOUT_FILENO, &env->fd_write);
 		if (env->fct_input != NULL)
@@ -33,8 +34,8 @@ void			run_client(t_env *env)
 			if (libcurses_check_input(env->screen, env->cursor) == LIBCURSES_NOK)
 				exit(42); // TODO : Find appropriate way to deal with check_input errors, rather than 'exit'
 		}
-		tryint(-1, select(env->s_sock + 1, &env->fd_read, &env->fd_write, 0, 0),
-				"select");
+		tryint(-1, select(select_nb, &env->fd_read, &env->fd_write, 0, 0),
+			"select");
 		check_fd(env);
 	}
 }

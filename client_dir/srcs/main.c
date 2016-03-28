@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/23 17:06:35 by marene           ###   ########.fr       */
+/*   Updated: 2016/03/28 18:20:15 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,12 @@ int		main(int argc, char **argv)
 
 	env.screen = NULL;
 	init_env(&env);
-	if (argc == 1)
-	{
-		wait_for_connect(&env);
-	}
-	else if (argc == 3)
-	{
-		get_opt(&env, argv[1], argv[2]);
-		create_client(&env);
-		run_client(&env);
-	}
+	setup_curses(&env);
+	if (argc != 3)
+		get_opt(&env, NULL, NULL);
 	else
-	{
-		usage(argv[0]);
-		return (EXIT_FAILURE);
-	}
+		get_opt(&env, argv[1], argv[2]);
+	create_client(&env);
+	run_client(&env);
 	return (EXIT_SUCCESS);
 }
