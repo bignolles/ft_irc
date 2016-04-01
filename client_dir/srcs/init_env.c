@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 16:11:56 by marene            #+#    #+#             */
-/*   Updated: 2016/03/24 15:54:01 by marene           ###   ########.fr       */
+/*   Updated: 2016/04/01 14:05:05 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,5 @@ void	init_env(t_env *env)
 	env->buf_read = ringbuff_construct();
 	if (env->screen != NULL)
 		libcurses_destruct_screen(&env->screen);
-	else
-		env->screen = NULL;
 	ft_bzero(env->user_input, RINGBUFF_BUFF_SIZE + 1);
 }

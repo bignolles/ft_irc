@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_client.c                                    :+:      :+:    :+:   */
+/*   connect_client.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/10/21 11:26:16 by marene            #+#    #+#             */
-/*   Updated: 2016/03/28 18:17:24 by marene           ###   ########.fr       */
+/*   Created: 2016/04/01 12:09:35 by marene            #+#    #+#             */
+/*   Updated: 2016/04/01 16:40:37 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <netdb.h>
-#include <client.h>
-#include <ft_error.h>
-#include <libft.h>
+#include "libft.h"
+#include "ft_error.h"
+#include "client.h"
 
-void	create_client(t_env *env)
+int			connect_client(t_env *env)
 {
 	struct protoent		*proto;
 	struct sockaddr_in	cin;
@@ -26,7 +26,7 @@ void	create_client(t_env *env)
 	env->fct_write = write_to_serv;
 	env->fct_input = wait_for_connect;
 	env->fct_output = read_from_serv_check;
-	if (env->s_sock > 0 && env->port != -1)
+	if (env->s_sock > 0 && env->port != -1 && env->s_addr != INADDR_NONE)
 	{
 		cin.sin_family = AF_INET;
 		cin.sin_port = htons(env->port);
@@ -37,9 +37,10 @@ void	create_client(t_env *env)
 			env->fct_write = write_to_serv;
 			env->fct_input = NULL;
 			env->fct_output = read_from_serv_check;
-			return ;
+			return (CLI_OK);
 		}
 	}
 	libcurses_add_input_by_name(env->screen, "No connection to server (/connect <host> <port number>)", BOX_CHAT);
 	libcurses_refresh_panes(env->screen);
+	return (CLI_FAIL);
 }
