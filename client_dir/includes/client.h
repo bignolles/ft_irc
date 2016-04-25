@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2016/04/01 16:38:45 by marene           ###   ########.fr       */
+/*   Updated: 2016/04/25 17:55:22 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define FD_SERV		1
 # define FD_IO			2
 # define CONNECT_CMD	"/connect"
-# define EXIT_CMD		"/exit" 
+# define EXIT_CMD		"/exit"
 # define PROMPT			"\n?>"
 # define IRC_END		"\n\r"
 
