@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 16:30:40 by marene            #+#    #+#             */
-/*   Updated: 2016/03/29 19:04:17 by marene           ###   ########.fr       */
+/*   Updated: 2016/04/25 17:40:28 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	get_opt(t_env *env, char *hostname, char *port)
 		env->s_addr = inet_addr(hostname);
 	}
 	if (env->s_addr == INADDR_NONE)
-		ringbuff_write(env->buf_read, "invalide hostname\n\r", RINGBUFF_CHUNK_SIZE);
+		ringbuff_write(env->buf_read, "invalide hostname\n\r",
+				RINGBUFF_CHUNK_SIZE);
 }

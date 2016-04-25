@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 14:01:18 by marene            #+#    #+#             */
-/*   Updated: 2016/04/01 16:42:21 by marene           ###   ########.fr       */
+/*   Updated: 2016/04/25 17:53:41 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,39 @@ static void		free_args(char **args)
 	}
 }
 
+static void		parse_user_input(t_env *env, char *input)
+{
+	char		**args;
+
+	if (ft_strstr(input, CONNECT_CMD) == input)
+	{
+		args = ft_strsplit(input, ' ');
+		if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
+		{
+			ringbuff_write(env->buf_read, "Invalid Command.",
+					RINGBUFF_CHUNK_SIZE);
+			free_args(args);
+		}
+		else
+		{
+			get_opt(env, args[1], args[2]);
+			free_args(args);
+			connect_client(env);
+			run_client(env);
+		}
+	}
+	else if (ft_strequ(input, EXIT_CMD))
+	{
+		env_delete(env);
+		libcurses_reinit();
+		exit(0);
+	}
+}
+
 void			wait_for_connect(t_env *env)
 {
 	char		*buff;
 	char		*trim;
-	char		**args;
 	int			len;
 
 	read_from_client(env);
@@ -43,27 +71,6 @@ void			wait_for_connect(t_env *env)
 	if (buff != NULL && ft_strlen(buff) > 0)
 	{
 		trim = ft_strtrim(buff);
-		if (ft_strstr(trim, CONNECT_CMD) == trim)
-		{
-			args = ft_strsplit(trim, ' ');
-			if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
-			{
-				ringbuff_write(env->buf_read, "Invalid Command.", RINGBUFF_CHUNK_SIZE);
-				free_args(args);
-			}
-			else
-			{
-				get_opt(env, args[1], args[2]);
-				free_args(args);
-				connect_client(env);
-				run_client(env);
-			}
-		}
-		else if (ft_strequ(trim, EXIT_CMD))
-		{
-			env_delete(env);
-			libcurses_reinit();
-			exit(0);
-		}
+		parse_user_input(env, trim);
 	}
 }

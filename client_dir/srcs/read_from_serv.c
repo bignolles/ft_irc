@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2016/03/29 09:12:01 by marene           ###   ########.fr       */
+/*   Updated: 2016/04/25 17:40:50 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	read_from_serv(t_env *env)
 	ret = recv(env->s_sock, buff, RINGBUFF_CHUNK_SIZE, 0);
 	if (ret <= 0)
 	{
-		ringbuff_write(env->buf_read, "No connection to server (/connect <host> <port number>)", RINGBUFF_CHUNK_SIZE);
+		ringbuff_write(env->buf_read,
+				"No connection to server (/connect <host> <port number>)",
+				RINGBUFF_CHUNK_SIZE);
 		env->fct_input = wait_for_connect;
 		env->s_sock = -1;
 		libcurses_refresh_panes(env->screen);
