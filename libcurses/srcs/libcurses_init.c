@@ -6,17 +6,26 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:11:09 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 16:59:52 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/03 16:36:07 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-	# include <stdio.h>
 
 #include <stdlib.h>
 #include "libft.h"
 #include "libcurses.h"
 
-static int		init(int i)
+t_keycode			g_keycodes[KEYCODES_NB] = {
+	{KEY_DC, handle_key_dc},
+	{KEY_LEFT, handle_key_left},
+	{KEY_RIGHT, handle_key_right},
+	{KEY_UP, NULL},
+	{KEY_DOWN, NULL},
+	{KEY_BACKSPACE, handle_key_dc},
+	{127, handle_key_dc},
+	{'\n', handle_key_enter},
+};
+
+static int			init(int i)
 {
 	static int		init = 0;
 	int				ret;
@@ -29,14 +38,14 @@ static int		init(int i)
 	return (ret);
 }
 
-void			libcurses_reinit(void)
+void				libcurses_reinit(void)
 {
 	echo();
 	endwin();
 	init(-1);
 }
 
-t_screen		*libcurses_init(void)
+t_screen			*libcurses_init(void)
 {
 	t_screen		*ret;
 

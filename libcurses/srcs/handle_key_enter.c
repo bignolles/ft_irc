@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libcurses_check_input.c                            :+:      :+:    :+:   */
+/*   handle_key_enter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/21 10:25:12 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 16:29:33 by marene           ###   ########.fr       */
+/*   Created: 2016/05/03 13:21:59 by marene            #+#    #+#             */
+/*   Updated: 2016/05/03 16:36:23 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "libcurses.h"
 
-int			libcurses_check_input(t_screen *screen)
+char		handle_key_enter(t_pane *p)
 {
-	t_pane		*input;
-
-	input = libcurses_get_pane_by_flags(screen, PANE_INPUT);
-	if (input != NULL)
-	{
-		wmove(input->win, input->dimension[0] / 2, input->padding[LEFT] + input->cursor);
-		wrefresh(input->win);
-		return (LIBCURSES_OK);
-	}
-	return (LIBCURSES_NOK);
+	werase(p->win);
+	ft_bzero(p->input_msg, p->input_msg_len);
+	p->input_msg_len = 0;
+	p->cursor = 0;
+	if ((p->flags & PANE_BOXED))
+		box(p->win, ACS_VLINE, ACS_HLINE);
+	return ('\n');
 }

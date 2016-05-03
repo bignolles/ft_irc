@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 12:08:30 by marene            #+#    #+#             */
-/*   Updated: 2016/03/22 17:25:20 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/03 16:52:31 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void		libcurses_print(t_pane *pane)
 			if (it->msg[i] == '\n' || cursor[1] == pane->dimension[1] - pane->padding[RIGHT] - pane->padding[LEFT])
 			{
 				cursor[0] += 1;
-				cursor[1] = pane->padding[LEFT];
+				cursor[1] = pane->padding[LEFT] - 1;
 			}
-			else
+			else if (cursor[0] > 0)
 			{
 				mvwaddch(pane->win, cursor[0], cursor[1], it->msg[i]);
-				cursor[1] += 1;
 			}
+			cursor[1] += 1;
 			++i;
 		}
 		it = it->next;
@@ -109,5 +109,5 @@ void		libcurses_refresh_panes(t_screen *screen)
 	}
 	input = get_input(screen);
 	if (input != NULL)
-		wmove(input->win, input->dimension[0] / 2, input->pos[1] + input->padding[LEFT]);
+		wmove(input->win, input->dimension[0] / 2, input->cursor + input->padding[LEFT]);
 }

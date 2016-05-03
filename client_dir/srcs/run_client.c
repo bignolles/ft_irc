@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/26 18:23:21 by marene            #+#    #+#             */
-/*   Updated: 2016/04/25 17:46:07 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/03 16:29:54 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			run_client(t_env *env)
 		FD_SET(STDIN_FILENO, &env->fd_read);
 		FD_SET(STDOUT_FILENO, &env->fd_write);
 		if (env->fct_input != NULL)
-			libcurses_check_input(env->screen, env->cursor);
+			libcurses_check_input(env->screen);
 		tryint(-1, select(select_nb, &env->fd_read, &env->fd_write, 0, 0),
 			"select");
 		check_fd(env);

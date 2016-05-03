@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 14:01:18 by marene            #+#    #+#             */
-/*   Updated: 2016/04/25 17:53:41 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/02 12:19:41 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		parse_user_input(t_env *env, char *input)
 		args = ft_strsplit(input, ' ');
 		if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
 		{
-			ringbuff_write(env->buf_read, "Invalid Command.",
+			ringbuff_write(env->buf_read, "Invalid Command.\n\r",
 					RINGBUFF_CHUNK_SIZE);
 			free_args(args);
 		}
@@ -56,6 +56,9 @@ static void		parse_user_input(t_env *env, char *input)
 		libcurses_reinit();
 		exit(0);
 	}
+	else
+			ringbuff_write(env->buf_read, "Invalid Command.\n\r",
+					RINGBUFF_CHUNK_SIZE);
 }
 
 void			wait_for_connect(t_env *env)
@@ -68,9 +71,12 @@ void			wait_for_connect(t_env *env)
 	libcurses_refresh_panes(env->screen);
 	buff = NULL;
 	len = ringbuff_read_to_str(env->buf_write, &buff, "\n\r");
+	endwin();
+	ft_putendl(buff);
 	if (buff != NULL && ft_strlen(buff) > 0)
 	{
 		trim = ft_strtrim(buff);
-		parse_user_input(env, trim);
+		if (trim != NULL)
+			parse_user_input(env, trim);
 	}
 }

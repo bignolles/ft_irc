@@ -18,7 +18,11 @@ SRCS =					libcurses_add_input.c\
 						libcurses_init.c\
 						libcurses_input_char.c\
 						libcurses_refresh_panes.c\
-						libcurses_set_pos.c
+						libcurses_set_pos.c\
+						handle_key_dc.c\
+						handle_key_enter.c\
+						handle_key_left.c\
+						handle_key_right.c
 OBJ =					$(SRCS:.c=.o)
 CFLAGS =				-Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_INCLUDES_DIR) -g -c -o
 LDFLAGS =				-q

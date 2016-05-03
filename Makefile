@@ -22,27 +22,49 @@ CLI_SRC_DIR =			./client_dir/srcs/
 SERV_SRC_DIR =			./server_dir/srcs/
 CLI_OBJ_DIR =			./client_dir/obj/
 SERV_OBJ_DIR =			./server_dir/obj/
-CLI_SRCS =				main.c					create_client.c\
-						read_from_client.c		write_to_serv.c\
-						init_env.c				read_from_serv.c\
-						check_fd.c				run_client.c\
-						get_opt.c				setup_curses.c\
-						usage.c					wait_for_connect.c\
-						env_delete.c			read_from_serv_check.c\
+CLI_SRCS =				main.c\
+						connect_client.c\
+						create_env.c\
+						read_from_client.c\
+						write_to_serv.c\
+						init_env.c\
+						read_from_serv.c\
+						check_fd.c\
+						run_client.c\
+						get_opt.c\
+						setup_curses.c\
+						usage.c\
+						wait_for_connect.c\
+						env_delete.c\
+						read_from_serv_check.c\
 						wait_read.c
-SERV_SRCS =				main.c					clean_fd.c\
-						disp.c					distribute_to_peers.c\
-						get_opt.c				init_env.c\
-						run_srv.c				srv_accept.c\
-						srv_create.c			init_fd.c\
-						check_fd.c				client_write.c\
-						client_read.c			get_client_input.c\
-						handle_nick.c			channels.c\
-						handle_join.c			handle_who.c\
-						handle_msg.c			handle_channels.c\
-						handle_help.c			handle_find.c\
-						handle_where.c			wait_write.c\
-						wait_read.c				end_connection.c
+
+SERV_SRCS =				main.c\
+						clean_fd.c\
+						disp.c\
+						distribute_to_peers.c\
+						get_opt.c\
+						init_env.c\
+						run_srv.c\
+						srv_accept.c\
+						srv_create.c\
+						init_fd.c\
+						check_fd.c\
+						client_write.c\
+						client_read.c\
+						get_client_input.c\
+						handle_nick.c\
+						channels.c\
+						handle_join.c\
+						handle_who.c\
+						handle_msg.c\
+						handle_channels.c\
+						handle_help.c\
+						handle_find.c\
+						handle_where.c\
+						wait_write.c\
+						wait_read.c\
+						end_connection.c
 CLI_OBJ =				$(CLI_SRCS:.c=.o)
 SERV_OBJ =				$(SERV_SRCS:.c=.o)
 

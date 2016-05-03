@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libcurses_check_input.c                            :+:      :+:    :+:   */
+/*   handle_key_dc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/21 10:25:12 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 16:29:33 by marene           ###   ########.fr       */
+/*   Created: 2016/05/03 13:00:13 by marene            #+#    #+#             */
+/*   Updated: 2016/05/03 16:38:07 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "libcurses.h"
 
-int			libcurses_check_input(t_screen *screen)
+char		handle_key_dc(t_pane *p)
 {
-	t_pane		*input;
-
-	input = libcurses_get_pane_by_flags(screen, PANE_INPUT);
-	if (input != NULL)
+	if (p->input_msg_len > 0)
 	{
-		wmove(input->win, input->dimension[0] / 2, input->padding[LEFT] + input->cursor);
-		wrefresh(input->win);
-		return (LIBCURSES_OK);
+		mvwdelch(p->win, p->dimension[0] / 2, p->padding[LEFT] + p->cursor);
+		p->input_msg_len -= 1;
+		p->input_msg[p->input_msg_len] = '\0';
+		p->cursor -= 1;
 	}
-	return (LIBCURSES_NOK);
+	return (0x08);
 }

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libcurses_check_input.c                            :+:      :+:    :+:   */
+/*   handle_key_left.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/21 10:25:12 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 16:29:33 by marene           ###   ########.fr       */
+/*   Created: 2016/05/03 13:19:34 by marene            #+#    #+#             */
+/*   Updated: 2016/05/03 13:30:40 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libcurses.h"
 
-int			libcurses_check_input(t_screen *screen)
+char		handle_key_left(t_pane *p)
 {
-	t_pane		*input;
-
-	input = libcurses_get_pane_by_flags(screen, PANE_INPUT);
-	if (input != NULL)
-	{
-		wmove(input->win, input->dimension[0] / 2, input->padding[LEFT] + input->cursor);
-		wrefresh(input->win);
-		return (LIBCURSES_OK);
-	}
-	return (LIBCURSES_NOK);
+	if (p->cursor > 0)
+		p->cursor -= 1;
+	return ('\0');
 }

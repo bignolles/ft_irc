@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 12:09:35 by marene            #+#    #+#             */
-/*   Updated: 2016/04/25 17:42:57 by marene           ###   ########.fr       */
+/*   Updated: 2016/04/29 14:09:35 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ int			connect_client(t_env *env)
 			return (CLI_OK);
 		}
 	}
-	libcurses_add_input_by_name(env->screen,
-		"No connection to server (/connect <host> <port number>)", BOX_CHAT);
+	if (env->fct_input != NULL)
+		libcurses_add_input_by_name(env->screen,
+			"No connection to server (/connect <host> <port number>)", BOX_CHAT);
 	libcurses_refresh_panes(env->screen);
 	return (CLI_FAIL);
 }
