@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 16:26:32 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 13:47:53 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/04 17:28:07 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,14 @@
 
 void			read_from_client(t_env *env)
 {
-	char	c;
+	char	*s;
 
-	c = libcurses_input_char(env->screen);
-	if (c != '\0')
+	s = libcurses_input_char(env->screen);
+	if (s != NULL)
 	{
-		if (c == '\n')
-		{
-			env->cursor = 0;
-			ringbuff_write(env->buf_write, &c, 1);
-			ringbuff_write(env->buf_write, "\r", 1);
-		}
-		else if (c == 0x08)
-		{
-			if (env->cursor > 0)
-				env->cursor -= 1;
-			ringbuff_pop_last(env->buf_write);
-		}
-		else
-		{
-			env->cursor += 1;
-			ringbuff_write(env->buf_write, &c, 1);
-		}
-		libcurses_refresh_panes(env->screen);
+		ringbuff_write(env->buf_write, s, ft_strlen(s));
+		free(s);
+			ringbuff_write(env->buf_write, "\n\r", 2);
 	}
+	libcurses_refresh_panes(env->screen);
 }

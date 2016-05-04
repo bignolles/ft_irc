@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 19:21:42 by marene            #+#    #+#             */
-/*   Updated: 2016/04/25 17:40:50 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/04 17:46:38 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	read_from_serv(t_env *env)
 	if (ret <= 0)
 	{
 		ringbuff_write(env->buf_read,
-				"No connection to server (/connect <host> <port number>)",
+				"No connection to server (/connect <host> <port number>)\n\r",
 				RINGBUFF_CHUNK_SIZE);
 		env->fct_input = wait_for_connect;
 		env->s_sock = -1;

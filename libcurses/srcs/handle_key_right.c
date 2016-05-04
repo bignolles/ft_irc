@@ -6,15 +6,15 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 13:20:57 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 13:31:07 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/04 15:15:26 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libcurses.h"
 
-char		handle_key_right(t_pane *p)
+char		*handle_key_right(t_pane *p)
 {
 	if (p->cursor < p->input_msg_len)
 		p->cursor += 1;
-	return ('\0');
+	return (NULL);
 }

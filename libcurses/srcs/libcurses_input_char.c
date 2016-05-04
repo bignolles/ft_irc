@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 18:13:26 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 16:47:59 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/04 15:14:14 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,51 @@
 
 extern t_keycode	g_keycodes[KEYCODES_NB];
 
-char				libcurses_input_char(t_screen *screen)
+static void			insert_char(t_pane *p, char c)
 {
-	t_pane		*input_p;
+	int		i;
+
+	if (p->cursor < p->input_msg_len && p->input_msg_len < LIBCURSES_MAX_INPUT - 1)
+	{
+		i = p->input_msg_len;
+		while (i >= p->cursor)
+		{
+			p->input_msg[i + 1] = p->input_msg[i];
+			--i;
+		}
+		ft_putendl(p->input_msg);
+	}
+	if (p->input_msg_len < LIBCURSES_MAX_INPUT - 1)
+	{
+		p->input_msg[p->cursor] = c;
+		p->input_msg_len += 1;
+		p->cursor += 1;
+		p->input_msg[p->input_msg_len] = '\0';
+	}
+}
+
+char				*libcurses_input_char(t_screen *screen)
+{
+	t_pane		*p;
 	int			ch;
 	int			i;
 
 	i = 0;
-	input_p = libcurses_get_pane_by_flags(screen, PANE_INPUT);
-	if (input_p != NULL && input_p->input_msg_len < LIBCURSES_MAX_INPUT - 1)
+	p = libcurses_get_pane_by_flags(screen, PANE_INPUT);
+	if (p != NULL && p->input_msg_len < LIBCURSES_MAX_INPUT - 1)
 	{
-		ch = wgetch(input_p->win);
+		ch = wgetch(p->win);
 		while (i < KEYCODES_NB)
 		{
-			if (g_keycodes[i].keycode == ch && g_keycodes[i].f != NULL)
-				return ((g_keycodes[i].f)(input_p));
+			if (g_keycodes[i].keycode == ch)
+				return ((g_keycodes[i].f == NULL) ? '\0' : (g_keycodes[i].f)(p));
 			++i;
 		}
-/*
-		if (ch == KEY_ENTER)
-		{
-			werase(input_p->win);
-			ft_bzero(input_p->input_msg, input_p->input_msg_len);
-			input_p->input_msg_len = 0;
-			if ((input_p->flags & PANE_BOXED))
-				box(input_p->win, ACS_VLINE, ACS_HLINE);
-			ch = '\n';
-		}
-		else if (ch == KEY_BACKSPACE || ch == KEY_DC)
-		{
-			if (input_p->input_msg_len > 0)
-			{
-				mvwdelch(input_p->win, input_p->dimension[0] / 2, input_p->padding[LEFT] + input_p->cursor - 1);
-				input_p->input_msg_len -= 1;
-				input_p->input_msg[input_p->input_msg_len] = '\0';
-			}
-		}
-		else
-		{
-*/
-			input_p->input_msg[input_p->input_msg_len] = ch;
-			input_p->input_msg_len += 1;
-			mvwaddch(input_p->win, input_p->dimension[0] / 2, input_p->padding[LEFT] + input_p->cursor, ch);
-			input_p->cursor += 1;
-//		}
-		return (ch);
+		insert_char(p, ch);
+		werase(p->win);
+		wrefresh(p->win);
+		wmove(p->win, p->dimension[0] / 2, p->cursor + p->padding[LEFT]);
+		waddstr(p->win, p->input_msg);
 	}
-	return ('\0');
+	return (NULL);
 }
