@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:24:50 by marene            #+#    #+#             */
-/*   Updated: 2016/03/21 16:34:33 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/06 14:43:22 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_ringbuff
 	t_ringerr	errno;
 }					t_ringbuff;
 
-typedef int (*t_cmp_fct)(int, t_ringbuff *buff);
+typedef int			(*t_cmp_fct)(int, t_ringbuff *buff);
 
 int					ringbuff_err_not_fatal(t_ringerr errno);
 t_ringbuff			*ringbuff_construct(void);
@@ -50,7 +50,7 @@ int					ringbuff_write_cpy(t_ringbuff *buff, char *chunk, int len);
 int					ringbuff_read_cpy(t_ringbuff *buff, char *chunk, int len);
 int					ringbuff_get_read_space(t_ringbuff *buff);
 int					ringbuff_get_write_space(t_ringbuff *buff);
-int					ringbuff_read_to_str(t_ringbuff *buff, char **tmp, char *str);
+int					ringbuff_read_to_str(t_ringbuff *buff, char **tmp, char *s);
 void				ringbuff_dump(t_ringbuff *buff);
 void				ringbuff_pop_last(t_ringbuff *buff);
 void				ringbuff_pop_first(t_ringbuff *buff);

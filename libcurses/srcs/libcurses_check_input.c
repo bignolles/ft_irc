@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 10:25:12 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 16:29:33 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 14:59:53 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int			libcurses_check_input(t_screen *screen)
 	input = libcurses_get_pane_by_flags(screen, PANE_INPUT);
 	if (input != NULL)
 	{
-		wmove(input->win, input->dimension[0] / 2, input->padding[LEFT] + input->cursor);
+		wmove(input->win, input->dimension[0] / 2, input->padding[LEFT]
+				+ input->cursor);
 		wrefresh(input->win);
 		return (LIBCURSES_OK);
 	}

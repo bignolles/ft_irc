@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libcurses_destruct_pane.c                          :+:      :+:    :+:   */
+/*   do_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/14 12:38:50 by marene            #+#    #+#             */
-/*   Updated: 2016/05/05 15:00:19 by marene           ###   ########.fr       */
+/*   Created: 2016/05/05 14:54:55 by marene            #+#    #+#             */
+/*   Updated: 2016/05/05 14:57:02 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libcurses.h"
+#include "client.h"
 
-void		libcurses_destruct_pane(t_pane **pane)
+void		do_exit(t_env *env)
 {
-	free((*pane)->name);
-	free((*pane)->win);
-	free(*pane);
-	*pane = NULL;
+	env_delete(env);
+	libcurses_reinit();
+	exit(0);
 }

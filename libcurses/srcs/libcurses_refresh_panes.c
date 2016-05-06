@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 12:08:30 by marene            #+#    #+#             */
-/*   Updated: 2016/05/03 16:52:31 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/06 13:07:11 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,43 @@ static int	get_lines_nb(char *str, int cols)
 	return (lines_nb);
 }
 
+static void	print(t_pane *pane, t_input *it, int line)
+{
+	int		cursor[2];
+	int		i;
+
+	i = 0;
+	cursor[0] = line;
+	cursor[1] = pane->padding[LEFT];
+	while (it->msg[i])
+	{
+		if (it->msg[i] == '\n' || cursor[1] == pane->dimension[1]
+				- pane->padding[RIGHT] - pane->padding[LEFT])
+		{
+			cursor[0] += 1;
+			cursor[1] = pane->padding[LEFT] - 1;
+		}
+		else if (cursor[0] > 0)
+		{
+			mvwaddch(pane->win, cursor[0], cursor[1], it->msg[i]);
+		}
+		cursor[1] += 1;
+		++i;
+	}
+}
+
 void		libcurses_print(t_pane *pane)
 {
-	int			cursor[2];
 	t_input		*it;
-	int			i;
 	int			line;
 
-	cursor[0] = pane->dimension[0];
 	line = pane->dimension[0];
 	it = pane->inputs;
 	while (it != NULL)
 	{
-		i = 0;
-		line -= (get_lines_nb(it->msg, pane->dimension[1] - pane->padding[RIGHT] - pane->padding[LEFT]) + 1);
-		cursor[0] = line;
-		cursor[1] = pane->padding[LEFT];
-		while (it->msg[i])
-		{
-			if (it->msg[i] == '\n' || cursor[1] == pane->dimension[1] - pane->padding[RIGHT] - pane->padding[LEFT])
-			{
-				cursor[0] += 1;
-				cursor[1] = pane->padding[LEFT] - 1;
-			}
-			else if (cursor[0] > 0)
-			{
-				mvwaddch(pane->win, cursor[0], cursor[1], it->msg[i]);
-			}
-			cursor[1] += 1;
-			++i;
-		}
+		line -= (get_lines_nb(it->msg, pane->dimension[1] - pane->padding[RIGHT]
+					- pane->padding[LEFT]) + 1);
+		print(pane, it, line);
 		it = it->next;
 	}
 }
@@ -87,7 +94,7 @@ t_pane		*get_input(t_screen *screen)
 void		libcurses_refresh_panes(t_screen *screen)
 {
 	t_panelist	*it;
-	t_pane		*input;
+	t_pane		*in;
 
 	it = screen->panes;
 	while (it != NULL)
@@ -101,13 +108,14 @@ void		libcurses_refresh_panes(t_screen *screen)
 				libcurses_print(it->pane);
 			if ((it->pane->flags & PANE_INPUT))
 			{
-				mvwaddstr(it->pane->win, it->pane->dimension[0] / 2, it->pane->padding[LEFT], it->pane->input_msg);
+				mvwaddstr(it->pane->win, it->pane->dimension[0] / 2,
+						it->pane->padding[LEFT], it->pane->input_msg);
 			}
 			wrefresh(it->pane->win);
 		}
 		it = it->next;
 	}
-	input = get_input(screen);
-	if (input != NULL)
-		wmove(input->win, input->dimension[0] / 2, input->cursor + input->padding[LEFT]);
+	in = get_input(screen);
+	if (in != NULL)
+		wmove(in->win, in->dimension[0] / 2, in->cursor + in->padding[LEFT]);
 }

@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/01 16:30:40 by marene            #+#    #+#             */
-/*   Updated: 2016/04/29 10:42:33 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 14:27:12 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ static int		get_port_nb(char *port)
 	return (port_nb);
 }
 
-void			get_opt(t_env *env, char *hostname, char *port)
+void			get_opt(t_env *env, char **args)
 {
 	struct hostent	*he;
 	struct in_addr	**addr_list;
+	char			*hostname;
+	char			*port;
 
+	hostname = args[1];
+	port = args[2];
 	env->port = get_port_nb(port);
 	if (hostname != NULL && (he = gethostbyname(hostname)) != NULL)
 	{
@@ -57,4 +61,5 @@ void			get_opt(t_env *env, char *hostname, char *port)
 	if (env->port == -1)
 		ringbuff_write(env->buf_read, "invalid port\n\r",
 				RINGBUFF_CHUNK_SIZE);
+	free_args(args);
 }

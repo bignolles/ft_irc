@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:38:23 by marene            #+#    #+#             */
-/*   Updated: 2016/03/18 12:44:13 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 16:41:08 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int			add_input(t_pane *pane, char *input)
 		return (LIBCURSES_NOK);
 }
 
-int			libcurses_add_input_by_name(t_screen *screen, char *input, char *name)
+int			libcurses_add_input_by_name(t_screen *screen, char *input,
+		char *name)
 {
 	t_panelist	*it;
 	int			all;

@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/22 19:05:49 by marene            #+#    #+#             */
-/*   Updated: 2016/04/25 17:55:22 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 14:55:26 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct				s_env
 typedef struct sockaddr		t_sockaddr;
 
 void						usage(char *exname);
-void						get_opt(t_env *env, char *hostname, char *port);
+void						get_opt(t_env *env, char **args);
 void						init_fd(t_env *env);
 int							connect_client(t_env *env);
 t_env						*create_env(int ac, char **av);
@@ -77,5 +77,7 @@ void						check_fd(t_env *env);
 void						wait_for_connect(t_env *env);
 void						read_from_serv_check(t_env *env);
 void						setup_curses(t_env *env);
+void						free_args(char **args);
+void						do_exit(t_env *env);
 
 #endif

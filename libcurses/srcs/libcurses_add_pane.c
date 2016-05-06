@@ -6,17 +6,16 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:24:46 by marene            #+#    #+#             */
-/*   Updated: 2016/03/14 16:57:31 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 16:13:51 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-	# include <stdio.h>
 
 #include <stdlib.h>
 #include "libft.h"
 #include "libcurses.h"
 
-t_pane		*libcurses_add_pane(t_screen *screen, char *pane_name, unsigned int flags, int *pos, int *dimension)
+t_pane		*libcurses_add_pane(t_screen *screen, char *pane_name,
+		unsigned int flags, int **dim_pos)
 {
 	t_pane			*new_pane;
 	t_panelist		*it;
@@ -24,7 +23,8 @@ t_pane		*libcurses_add_pane(t_screen *screen, char *pane_name, unsigned int flag
 	new_pane = NULL;
 	if ((flags & PANE_IO))
 	{
-		new_pane = libcurses_create_pane(pane_name, flags, pos, dimension);
+		new_pane = libcurses_create_pane(pane_name, flags,
+				dim_pos[1], dim_pos[0]);
 		if (new_pane != NULL)
 		{
 			it = screen->panes;

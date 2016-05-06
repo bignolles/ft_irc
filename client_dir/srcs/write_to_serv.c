@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/02 14:35:22 by marene            #+#    #+#             */
-/*   Updated: 2016/05/04 15:22:02 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 14:56:25 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,7 @@ void			write_to_serv(t_env *env)
 	if (buff != NULL)
 	{
 		if (is_exit(buff))
-		{
-			env_delete(env);
-			libcurses_reinit();
-			exit(0);
-		}
+			do_exit(env);
 		ret = tryint(-1, send(env->s_sock, buff, len, 0), "send");
 	}
 }

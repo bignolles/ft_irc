@@ -6,7 +6,7 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/10/21 11:26:16 by marene            #+#    #+#             */
-/*   Updated: 2016/04/29 14:09:15 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 16:39:47 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,30 @@
 #include <ft_error.h>
 #include <libft.h>
 
-static void		opt_preset(int ac, char **av, char **host, char **port)
+static void		opt_preset(int ac, char **av, char **args)
 {
 	if (ac >= 2)
 	{
-		*host = ft_strdup(av[1]);
+		args[1] = ft_strdup(av[1]);
 		if (ac == 3)
-			*port = ft_strdup(av[2]);
+			args[2] = ft_strdup(av[2]);
 		else
-			*port = ft_strdup("4242");
+			args[2] = ft_strdup("4242");
 	}
 	else
 	{
-		*host = ft_strdup("localhost");
-		*port = ft_strdup("4242");
+		args[1] = ft_strdup("localhost");
+		args[2] = ft_strdup("4242");
 	}
 }
 
 t_env			*create_env(int ac, char **av)
 {
 	t_env		*env;
-	char		*host;
-	char		*port;
+	char		*args[3];
 
 	env = NULL;
+	args[0] = NULL;
 	if (ac <= 3)
 	{
 		env = malloc(sizeof(t_env));
@@ -47,8 +47,8 @@ t_env			*create_env(int ac, char **av)
 			env->screen = NULL;
 			init_env(env);
 			setup_curses(env);
-			opt_preset(ac, av, &host, &port);
-			get_opt(env, host, port);
+			opt_preset(ac, av, args);
+			get_opt(env, args);
 		}
 	}
 	return (env);

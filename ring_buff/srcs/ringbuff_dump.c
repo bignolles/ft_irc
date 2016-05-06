@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 11:02:20 by marene            #+#    #+#             */
-/*   Updated: 2016/03/08 13:45:07 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/06 14:43:48 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_cmp_fct	get_cmp(t_ringbuff *buff)
 static void			ft_putchar_escape(char c)
 {
 	if (c == '\0')
-		return ;//write(1, "\\0", 2);
+		return ;
 	else if (c == '\n')
 		write(1, "\\n", 2);
 	else if (c == '\t')

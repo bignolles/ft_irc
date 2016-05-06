@@ -6,14 +6,14 @@
 /*   By: marene <marene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/28 14:01:18 by marene            #+#    #+#             */
-/*   Updated: 2016/05/02 12:19:41 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/05 14:58:40 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <client.h>
 
-static void		free_args(char **args)
+void			free_args(char **args)
 {
 	int		i;
 
@@ -25,7 +25,6 @@ static void		free_args(char **args)
 			free(args[i]);
 			++i;
 		}
-		free(args);
 	}
 }
 
@@ -44,21 +43,16 @@ static void		parse_user_input(t_env *env, char *input)
 		}
 		else
 		{
-			get_opt(env, args[1], args[2]);
-			free_args(args);
+			get_opt(env, args);
 			connect_client(env);
 			run_client(env);
 		}
 	}
 	else if (ft_strequ(input, EXIT_CMD))
-	{
-		env_delete(env);
-		libcurses_reinit();
-		exit(0);
-	}
+		do_exit(env);
 	else
-			ringbuff_write(env->buf_read, "Invalid Command.\n\r",
-					RINGBUFF_CHUNK_SIZE);
+		ringbuff_write(env->buf_read, "Invalid Command.\n\r",
+				RINGBUFF_CHUNK_SIZE);
 }
 
 void			wait_for_connect(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: marene <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 18:13:26 by marene            #+#    #+#             */
-/*   Updated: 2016/05/04 15:14:14 by marene           ###   ########.fr       */
+/*   Updated: 2016/05/06 14:36:11 by marene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void			insert_char(t_pane *p, char c)
 {
 	int		i;
 
-	if (p->cursor < p->input_msg_len && p->input_msg_len < LIBCURSES_MAX_INPUT - 1)
+	if (p->cursor < p->input_msg_len
+			&& p->input_msg_len < LIBCURSES_MAX_INPUT - 1)
 	{
 		i = p->input_msg_len;
 		while (i >= p->cursor)
@@ -54,7 +55,10 @@ char				*libcurses_input_char(t_screen *screen)
 		while (i < KEYCODES_NB)
 		{
 			if (g_keycodes[i].keycode == ch)
-				return ((g_keycodes[i].f == NULL) ? '\0' : (g_keycodes[i].f)(p));
+			{
+				return ((g_keycodes[i].f == NULL)
+					? '\0' : (g_keycodes[i].f)(p));
+			}
 			++i;
 		}
 		insert_char(p, ch);
